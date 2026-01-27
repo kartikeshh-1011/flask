@@ -1,0 +1,521 @@
+/* ========================================
+   COMPREHENSIVE RESPONSIVE DESIGN
+   Mobile-First Approach for All Devices
+   ======================================== */
+
+/* ========== BASE MOBILE STYLES ========== */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* ========== TABLET (768px - 1024px) ========== */
+@media (max-width: 1024px) {
+    .container {
+        padding: 15px 20px !important;
+    }
+
+    .menu ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .menu a {
+        padding: 12px 40px !important;
+    }
+}
+
+/* ========== MOBILE (max-width: 768px) ========== */
+@media (max-width: 768px) {
+
+    /* ===== HEADER ===== */
+    #first {
+        height: auto !important;
+        padding: 8px 10px !important;
+        font-size: 14px;
+    }
+
+    #second {
+        height: auto !important;
+        padding: 8px 0 !important;
+    }
+
+    #gmail {
+        padding-left: 10px !important;
+        font-size: 14px !important;
+        text-align: center;
+        display: block;
+    }
+
+    .top-header {
+        height: auto !important;
+    }
+
+    .container {
+        flex-direction: column !important;
+        height: auto !important;
+        padding: 15px !important;
+        gap: 15px;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .logo img {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .logo h1 {
+        font-size: 20px !important;
+    }
+
+    .right {
+        flex-direction: column !important;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .call {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .call i {
+        font-size: 18px !important;
+        padding: 8px !important;
+    }
+
+    .number {
+        font-size: 14px;
+    }
+
+    .login-btn {
+        width: 100% !important;
+        padding: 12px 20px !important;
+        font-size: 16px !important;
+    }
+
+    /* ===== NAVIGATION MENU ===== */
+    .menu {
+        overflow-x: auto;
+    }
+
+    .menu ul {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 0 !important;
+    }
+
+    .menu ul li {
+        width: 100%;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .menu a {
+        padding: 15px 20px !important;
+        width: 100%;
+        text-align: left !important;
+        font-size: 16px !important;
+    }
+
+    .menu ul ul {
+        position: static !important;
+        width: 100% !important;
+        background: #f5f5f5 !important;
+        padding-left: 20px !important;
+    }
+
+    .menu ul ul ul {
+        padding-left: 40px !important;
+        background: #ececec !important;
+    }
+
+    .menu ul li:hover>ul {
+        display: block;
+    }
+
+    /* ===== SLIDER ===== */
+    .slider {
+        height: 250px !important;
+    }
+
+    .slide img {
+        height: 250px !important;
+        object-fit: cover;
+    }
+
+    /* ===== STAFF SECTION ===== */
+    .staff-section {
+        padding: 30px 15px !important;
+    }
+
+    .staff-section h2 {
+        font-size: 24px !important;
+    }
+
+    .subtitle {
+        font-size: 13px !important;
+        padding: 0 10px;
+    }
+
+    .staff-container {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 30px !important;
+    }
+
+    .staff-card {
+        width: 90% !important;
+        max-width: 300px;
+    }
+
+    .staff-card img {
+        width: 200px !important;
+        height: 200px !important;
+    }
+
+    /* ===== FORMS (Login, Signup, Contact, etc) ===== */
+    .form-container,
+    .container.form-container {
+        width: 95% !important;
+        max-width: 100% !important;
+        margin: 10px auto !important;
+        flex-direction: column !important;
+    }
+
+    .welcome-box {
+        display: none !important;
+        /* Hide welcome image on mobile */
+    }
+
+    .form-box {
+        width: 100% !important;
+        padding: 25px 20px !important;
+    }
+
+    .form-box.signup {
+        width: 100% !important;
+    }
+
+    .form-box h1 {
+        font-size: 24px !important;
+    }
+
+    .input-box input,
+    .input-box select,
+    .input-box textarea {
+        font-size: 16px !important;
+        /* Prevents zoom on iOS */
+        padding: 12px !important;
+    }
+
+    .btn,
+    button[type="submit"] {
+        padding: 14px !important;
+        font-size: 16px !important;
+    }
+
+    /* ===== CONTACT PAGE ===== */
+    .contact {
+        flex-direction: column !important;
+        padding: 15px !important;
+    }
+
+    .container1 {
+        flex-direction: column !important;
+        padding: 0 !important;
+    }
+
+    .contactInfo {
+        width: 100% !important;
+        padding: 20px !important;
+        margin-bottom: 20px;
+    }
+
+    .contactForm {
+        width: 100% !important;
+        padding: 20px !important;
+    }
+
+    .box {
+        margin: 15px 0 !important;
+    }
+
+    .box .icon {
+        font-size: 20px !important;
+    }
+
+    .box .text h3 {
+        font-size: 16px !important;
+    }
+
+    .box .text p {
+        font-size: 14px !important;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100% !important;
+        font-size: 16px !important;
+        padding: 12px !important;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer-top {
+        flex-direction: column !important;
+        padding: 30px 20px !important;
+        text-align: center;
+    }
+
+    .footer-box {
+        margin: 20px 0 !important;
+        width: 100%;
+    }
+
+    .footer-box h3 {
+        font-size: 18px !important;
+    }
+
+    .footer-box ul li {
+        font-size: 14px !important;
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .social-icons i {
+        margin: 5px !important;
+    }
+
+    hr {
+        margin: 0 20px !important;
+    }
+
+    .footer-bottom {
+        flex-direction: column !important;
+        gap: 20px;
+        text-align: center;
+        padding: 20px !important;
+    }
+
+    .info {
+        flex-direction: column !important;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .info i {
+        margin-right: 0 !important;
+        margin-bottom: 8px;
+    }
+
+    .complain {
+        justify-content: center;
+    }
+
+    .copyright {
+        font-size: 12px !important;
+        padding: 12px !important;
+    }
+
+    /* ===== TABLES ===== */
+    table {
+        font-size: 12px !important;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    th,
+    td {
+        padding: 8px 5px !important;
+    }
+
+    /* ===== FLASH MESSAGES ===== */
+    .flash-messages {
+        position: fixed !important;
+        top: 10px !important;
+        right: 10px !important;
+        left: 10px !important;
+        max-width: none !important;
+        z-index: 9999;
+    }
+
+    .flash-message {
+        padding: 12px 15px !important;
+        font-size: 14px !important;
+        margin-bottom: 8px;
+    }
+}
+
+/* ========== SMALL MOBILE (max-width: 480px) ========== */
+@media (max-width: 480px) {
+
+    html {
+        font-size: 14px;
+    }
+
+    .logo h1 {
+        font-size: 18px !important;
+    }
+
+    .menu a {
+        padding: 12px 15px !important;
+        font-size: 15px !important;
+    }
+
+    .slider {
+        height: 200px !important;
+    }
+
+    .slide img {
+        height: 200px !important;
+    }
+
+    .staff-section h2 {
+        font-size: 20px !important;
+    }
+
+    .staff-card img {
+        width: 180px !important;
+        height: 180px !important;
+    }
+
+    .form-box {
+        padding: 20px 15px !important;
+    }
+
+    .form-box h1 {
+        font-size: 22px !important;
+    }
+
+    .btn {
+        padding: 12px !important;
+        font-size: 15px !important;
+    }
+
+    .footer-top {
+        padding: 20px 15px !important;
+    }
+
+    .footer-bottom {
+        padding: 15px !important;
+    }
+}
+
+/* ========== LANDSCAPE MODE (Mobile) ========== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .slider {
+        height: 300px !important;
+    }
+
+    .slide img {
+        height: 300px !important;
+    }
+}
+
+/* ========== UTILITY CLASSES ========== */
+@media (max-width: 768px) {
+    .mobile-hide {
+        display: none !important;
+    }
+
+    .mobile-center {
+        text-align: center !important;
+    }
+
+    .mobile-full-width {
+        width: 100% !important;
+    }
+}
+
+/* ========== FLASH MESSAGES (All Devices) ========== */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
+}
+
+.flash-message {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease-out;
+}
+
+.flash-success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.flash-error {
+    background-color: #f44336;
+    color: white;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+/* ========== TOUCH IMPROVEMENTS ========== */
+@media (max-width: 768px) {
+
+    a,
+    button,
+    .btn,
+    input[type="submit"] {
+        min-height: 44px;
+        /* Apple's recommended touch target */
+        min-width: 44px;
+    }
+
+    /* Improve tap targets */
+    .menu a,
+    .footer-box ul li,
+    .social-icons i {
+        padding: 12px !important;
+    }
+}

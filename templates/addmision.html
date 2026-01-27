@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Learning Hub – Admission</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="card">
+
+            <h2>APEX LEARNING HUB</h2>
+            <p class="tagline">Student Admission Form</p>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('submit_admission') }}" method="POST">
+
+                <!-- Student Info -->
+                <h3>Student Information</h3>
+
+                <div class="row">
+                    <input type="text" name="student_name" placeholder="Student Name" required>
+                    <input type="date" name="date_of_birth" placeholder="Date of Birth" required>
+                </div>
+
+                <div class="row">
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="text" name="contact_number" placeholder="Contact Number" required>
+                </div>
+
+                <div class="row">
+                    <input type="text" name="class_enroll" placeholder="Class Enroll For" required>
+                    <div class="radio-group">
+                        <label><input type="radio" name="gender" value="Male" required> Male</label>
+                        <label><input type="radio" name="gender" value="Female" required> Female</label>
+                    </div>
+                </div>
+
+                <!-- Guardian Info -->
+                <h3>Guardian Information</h3>
+
+                <div class="row">
+                    <input type="text" name="guardian_name" placeholder="Guardian Name" required>
+                    <input type="text" name="guardian_contact" placeholder="Contact Number" required>
+                </div>
+
+                <div class="row">
+                    <input type="text" name="guardian_occupation" placeholder="Occupation">
+                    <input type="text" name="guardian_address" placeholder="Address">
+                </div>
+
+                <!-- Previous Board -->
+                <h3>Previous Board Details</h3>
+
+                <div class="radio-group">
+                    <label><input type="radio" name="previous_board" value="CBSE" required> CBSE</label>
+                    <label><input type="radio" name="previous_board" value="ICSE" required> ICSE</label>
+                    <label><input type="radio" name="previous_board" value="IGCSE" required> IGCSE</label>
+                    <label><input type="radio" name="previous_board" value="HSC" required> HSC</label>
+                    <label><input type="radio" name="previous_board" value="SSC" required> SSC</label>
+                    <label><input type="radio" name="previous_board" value="OTHER" required> OTHER</label>
+                </div>
+
+                <div class="row">
+                    <input type="text" name="previous_school" placeholder="School / College Name">
+                    <input type="text" name="percentage_obtained" placeholder="Percentage Obtained">
+                </div>
+
+                <!-- Enrolled Board -->
+                <h3>Enrolled Board</h3>
+
+                <div class="radio-group">
+                    <label><input type="radio" name="enrolled_board" value="CBSE" required> CBSE</label>
+                    <label><input type="radio" name="enrolled_board" value="ICSE" required> ICSE</label>
+                    <label><input type="radio" name="enrolled_board" value="IGCSE" required> IGCSE</label>
+                    <label><input type="radio" name="enrolled_board" value="HSC" required> HSC</label>
+                    <label><input type="radio" name="enrolled_board" value="SSC" required> SSC</label>
+                    <label><input type="radio" name="enrolled_board" value="OTHER" required> OTHER</label>
+                </div>
+
+                <input type="text" name="enrolled_school" placeholder="School / College Name">
+
+                <!-- Program -->
+                <h3>Program Enrolled For</h3>
+
+                <div class="radio-group">
+                    <label><input type="radio" name="program_enrolled" value="School / College" required> School /
+                        College</label>
+                    <label><input type="radio" name="program_enrolled" value="IIT Foundation" required> IIT
+                        Foundation</label>
+                    <label><input type="radio" name="program_enrolled" value="School + IIT Foundation" required> School
+                        + IIT Foundation</label>
+                    <label><input type="radio" name="program_enrolled" value="Scholarship" required> Scholarship</label>
+                    <label><input type="radio" name="program_enrolled" value="Board + CET" required> Board + CET</label>
+                    <label><input type="radio" name="program_enrolled" value="Others" required> Others</label>
+                </div>
+
+                <!-- Subjects -->
+                <h3>Subject List</h3>
+
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="subjects" value="Hindi Grammar"> Hindi Grammar</label>
+                    <label><input type="checkbox" name="subjects" value="English Grammar"> English Grammar</label>
+                    <label><input type="checkbox" name="subjects" value="Marathi Grammar"> Marathi Grammar</label>
+                    <label><input type="checkbox" name="subjects" value="Maths"> Maths</label>
+                    <label><input type="checkbox" name="subjects" value="Science"> Science</label>
+                    <label><input type="checkbox" name="subjects" value="Physics"> Physics</label>
+                    <label><input type="checkbox" name="subjects" value="Chemistry"> Chemistry</label>
+                    <label><input type="checkbox" name="subjects" value="Biology"> Biology</label>
+                    <label><input type="checkbox" name="subjects" value="SST"> SST</label>
+                    <label><input type="checkbox" name="subjects" value="Vedic Maths"> Vedic Maths</label>
+                    <label><input type="checkbox" name="subjects" value="Art & Craft"> Art & Craft</label>
+                </div>
+
+                <div class="button">
+                    <input type="submit" value="Submit Application">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

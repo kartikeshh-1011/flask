@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result Check Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='learn.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Check Your Result</h2>
+
+    <form id="resultForm">
+        <label>Roll Number</label>
+        <input type="text" id="roll" placeholder="Enter Roll Number" required>
+
+        <label>Date of Birth</label>
+        <input type="date" id="dob" required>
+
+        <label>Class</label>
+        <select id="class" required>
+            <option value="">Select Class</option>
+            <option value="10">10th</option>
+            <option value="12">12th</option>
+            <option value="bca">BCA</option>
+        </select>
+
+        <button type="submit">Check Result</button>
+    </form>
+
+    <div id="resultBox"></div>
+</div>
+
+<script src="learn.js"></script>
+</body>
+</html>

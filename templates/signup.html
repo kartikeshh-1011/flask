@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='signup.css')}}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
+</head>
+
+<body>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash-message flash-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <div class="form-box signup">
+            <form action="{{ url_for('signup') }}" method="POST">
+                <h1>Sign Up</h1>
+
+                <div class="input-box">
+                    <select name="role" required>
+                        <option value="">Select Your Role</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Student">Student</option>
+                    </select>
+                </div>
+
+                <div class="input-box">
+                    <input type="text" name="username" placeholder="Username Required" required>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div class="input-box">
+                    <input type="email" name="email" placeholder="Email Required" required>
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" name="password" placeholder="Password Required" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <button type="submit" class="btn">Sign Up</button>
+
+                <p>or Sign Up with Google</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-google"></i></a>
+                </div>
+            </form>
+        </div>
+
+        <div class="welcome-box">
+            <img src="{{url_for('static',filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg')}}" alt="logo">
+            <h2>Hello Welcome!!</h2>
+        </div>
+    </div>
+    <script src="{{url_for('static',filename='signup.js')}}"></script>
+</body>
+
+</html>

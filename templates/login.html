@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='login.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
+</head>
+
+<body>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash-message flash-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <div class="welcome-box">
+            <img id="image" src="{{url_for('static',filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg')}}" alt="">
+            <h2>Welcome Back!</h2>
+        </div>
+        <div class="form-box">
+            <form id="loginForm" method="POST" action="{{ url_for('login') }}">
+                <h1 id="roleTitle">Login</h1>
+                <div class="input-box">
+                    <input type="text" name="username" id="username" placeholder="Username" required>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="forgot-link">
+                    <a href="{{url_for('forgot')}}">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="role-buttons">
+                    <!-- Role selection is currently UI-only as backend doesn't distinguish yet -->
+                    <button type="button" onclick="setRole('Admin')">Admin</button>
+                    <button type="button" onclick="setRole('Teacher')">Teacher</button>
+                    <button type="button" onclick="setRole('Student')">Student</button>
+                </div>
+
+                <p class="signup">
+                    New user? <a href="{{url_for('signup')}}">Sign Up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+    <script src="{{url_for('static',filename='login.js')}}"></script>
+</body>
+
+</html>

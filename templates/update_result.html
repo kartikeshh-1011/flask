@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Results - Teacher Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .student-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .student-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .student-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .info-item {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+
+        .info-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .subject-input {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subject-input label {
+            font-weight: 600;
+            color: #764ba2;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .subject-input input {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .subject-input input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .no-students {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            color: #999;
+        }
+
+        .no-students h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .flash-messages {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 400px;
+        }
+
+        .alert {
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            animation: slideInRight 0.3s ease-out;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="{{ url_for('home') }}" class="btn-back">← Back to Home</a>
+
+        <div class="dashboard-header">
+            <h1>📚 TEACHER DASHBOARD</h1>
+            <p>Update Student Results</p>
+        </div>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% if students %}
+        {% for student in students %}
+        <div class="student-card">
+            <form action="{{ url_for('submit_result') }}" method="POST">
+                <div class="student-info">
+                    <div class="info-item">
+                        <strong>Student Name</strong>
+                        {{ student.student_name }}
+                        <input type="hidden" name="student_name" value="{{ student.student_name }}">
+                    </div>
+                    <div class="info-item">
+                        <strong>Email</strong>
+                        {{ student.email }}
+                        <input type="hidden" name="email" value="{{ student.email }}">
+                    </div>
+                    <div class="info-item">
+                        <strong>Class</strong>
+                        {{ student.class_enroll }}
+                        <input type="hidden" name="class" value="{{ student.class_enroll }}">
+                    </div>
+                </div>
+
+                <h3 style="color: #764ba2; margin-bottom: 15px;">Enter Marks (Out of 100)</h3>
+
+                <div class="subjects-grid">
+                    {% set subjects_list = student.subjects.split(', ') if student.subjects else [] %}
+
+                    {% if 'Hindi Grammar' in subjects_list %}
+                    <div class="subject-input">
+                        <label>Hindi Grammar</label>
+                        <input type="number" name="hindi_grammar" min="0" max="100" step="0.01"
+                            placeholder="Enter marks">
+                    </div>
+                    {% endif %}
+
+                    {% if 'English Grammar' in subjects_list %}
+                    <div class="subject-input">
+                        <label>English Grammar</label>
+                        <input type="number" name="english_grammar" min="0" max="100" step="0.01"
+                            placeholder="Enter marks">
+                    </div>
+                    {% endif %}
+
+                    {% if 'Marathi Grammar' in subjects_list %}
+                    <div class="subject-input">
+                        <label>Marathi Grammar</label>
+                        <input type="number" name="marathi_grammar" min="0" max="100" step="0.01"
+                            placeholder="Enter marks">
+                    </div>
+                    {% endif %}
+
+                    {% if 'Maths' in subjects_list %}
+                    <div class="subject-input">
+                        <label>Maths</label>
+                        <input type="number" name="maths" min="0" max="100" step="0.01" placeholder="Enter marks">
+                    </div>
+                    {% endif %}
+
+                    {% if 'Science' in subjects_list %}
+                    <div class="subject-input">
+                        <label>Science</label>
+                        <input type="number" name="science" min="0" max="100" step="0.01" placeholder="Enter marks">
+                    </div>
+                    {% endif %}
+
+                    {% if 'Physics' in subjects_list %}
+                    <div class="subject-input">
+                        <label>Physics</label>
+                        <input type="number" name="physics" min="0" max="100" step="0.01" placeholder="Enter marks">
+                    </div>
+                    {% endif %}
+
+                    {% if 'Chemistry' in subjects_list %}
+                    <div class="subject-input">
+                        <label>Chemistry</label>
+                        <input type="number" name="chemistry" min="0" max="100" step="0.01" placeholder="Enter marks">
+                    </div>
+                    {% endif %}
+
+                    {% if 'Biology' in subjects_list %}
+                    <div class="subject-input">
+                        <label>Biology</label>
+                        <input type="number" name="biology" min="0" max="100" step="0.01" placeholder="Enter marks">
+                    </div>
+                    {% endif %}
+
+                    {% if 'SST' in subjects_list %}
+                    <div class="subject-input">
+                        <label>SST</label>
+                        <input type="number" name="sst" min="0" max="100" step="0.01" placeholder="Enter marks">
+                    </div>
+                    {% endif %}
+
+                    {% if 'Vedic Maths' in subjects_list %}
+                    <div class="subject-input">
+                        <label>Vedic Maths</label>
+                        <input type="number" name="vedic_maths" min="0" max="100" step="0.01" placeholder="Enter marks">
+                    </div>
+                    {% endif %}
+
+                    {% if 'Art & Craft' in subjects_list %}
+                    <div class="subject-input">
+                        <label>Art & Craft</label>
+                        <input type="number" name="art_craft" min="0" max="100" step="0.01" placeholder="Enter marks">
+                    </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn-submit">💾 Save Results for {{ student.student_name }}</button>
+            </form>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="no-students">
+            <h3>📋 No Students Found</h3>
+            <p>No students have submitted admission forms yet.</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Students will appear here once they complete the admission
+                form.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // Auto-hide flash messages after 5 seconds
+        setTimeout(function () {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                alert.style.animation = 'slideOutRight 0.3s ease-out';
+                setTimeout(() => alert.remove(), 300);
+            });
+        }, 5000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,328 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+#first{
+    height: 35px;
+    width: 100%;
+    background-color: #29629d;
+    color: yellow;
+    padding-top: 8px;
+}
+#new{
+    background-color: #29909d;
+    color: white;
+    height: 35px;
+    width: 100px;
+    margin-left: 160px;
+    text-align: center;
+    padding-top: 1px;
+}
+#second{
+    height: 35px;
+    width: 100%;
+    background-color: #29909d;
+}
+#gmail{
+    padding-left: 120px;
+    color: white;
+    font-size: large;
+}
+#second a{
+    text-decoration: none;
+}
+
+.top-header {
+    background: #f9f9f9;
+    border-top: 4px solid #29909d;
+    height: 35px;
+
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    height: 80px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 55px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    color: #29909d;
+    box-shadow: #29909d;
+}
+
+
+.right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.call {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #29909d;
+}
+
+.call i {
+    font-size: 22px;
+    border: 1px solid #29909d;
+    padding: 10px;
+    border-radius: 50%;
+}
+.number a{
+    text-decoration: none;
+    color: #29909d;
+}
+
+.login-btn {
+    background: #29909d;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 15px;
+}
+.menu {
+    background: #efefef;
+    font-family: Arial, sans-serif;
+}
+
+.menu ul {
+    list-style: none;
+}
+
+/* MAIN MENU */
+.menu  ul {
+    display: flex;
+    align-items: center;
+}
+.menu  ul  li {
+    position: relative;
+}
+.menu a {
+    display: block;
+    padding: 14px 80px;
+    color: #000000;
+    text-decoration: none;
+    font-size: 16px;
+}
+.menu a:hover {
+    background: #29909d;
+}
+/* FIRST DROPDOWN */
+.menu ul ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #aaaaaa;
+    min-width: 220px;
+    display: none;
+    z-index: 1000;
+}
+
+.menu ul li:hover > ul {
+    display: block;
+}
+
+/* DROPDOWN ITEMS */
+.menu ul ul li {
+    position: relative;
+}
+
+/* SECOND  DROPDOWN */
+.menu ul ul ul {
+    top: 0;
+    left: 100%;
+    background: #aaaaaa;
+}
+
+/* HOVER */
+.menu ul ul a:hover {
+    background: #29909d;
+}
+.container2 {
+    width: 350px;
+    margin: 100px auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background: #29909d;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #29909d;
+}
+
+#resultBox {
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.footer {
+    background: #383838;
+    color: #ddd;
+    bottom: 0%;
+    background:url('https://www.encounterbooks.com/wp-content/uploads/2020/02/graduationcaphero-1280x910.jpg')center/cover no-repeat;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 80px;
+}
+
+.footer-box h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #fff;
+    border-bottom: 2px solid #888;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+.footer-box a{
+    text-decoration: none;
+}
+
+.footer-box ul {
+    list-style: none;
+    color: white;
+}
+
+.footer-box ul li {
+    margin: 10px 0;
+    cursor: pointer;
+    color: white;
+}
+
+.footer-box ul li:hover {
+    color: #29909d;
+}
+#numberclick a{
+    color: white;
+    text-decoration: none;
+}
+
+.social-icons i {
+    border: 1px solid #aaa;
+    padding: 10px;
+    margin: 5px;
+    width: 38px;
+    height: 38px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+}
+
+.social-icons i:hover {
+    background: #29909d;
+    color: #000; 
+}
+.feed:hover{
+    color: #29909d;
+}
+.complain {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.complain i {
+    margin-right: 10px;
+    font-size: 22px;
+    color: white;
+}
+.complain a{
+    color: white;
+}
+
+.complain a:hover{
+    color: #29909d;
+}
+hr {
+    border: 0.5px solid #555;
+    margin: 0 80px;
+}
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 80px;
+}
+.footer-bottom a:hover{
+    color: #29909d;
+}
+.info {
+    display: flex;
+    align-items: center;
+}
+
+.info i {
+    font-size: 25px;
+    margin-right: 15px;
+}
+.info a{
+    text-decoration: none;
+    color: white;
+}
+
+#numberclick a:hover{
+    color: #29909d;
+}
+
+.copyright {
+    background: #29909d;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+}

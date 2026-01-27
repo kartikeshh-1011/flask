@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Records - Apex Learning Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+        }
+
+        tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+            transform: scale(1.01);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.2em;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .badge-male {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-female {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .subjects-list {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            th,
+            td {
+                padding: 10px 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="{{ url_for('home') }}" class="btn-back">← Back to Home</a>
+
+        <h1>ADMISSION RECORDS</h1>
+        <p class="subtitle">Apex Learning Hub - Student Applications Database</p>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>{{ total_admissions }}</h3>
+                <p>Total Applications</p>
+            </div>
+            <div class="stat-card">
+                <h3>{{ male_count }}</h3>
+                <p>Male Students</p>
+            </div>
+            <div class="stat-card">
+                <h3>{{ female_count }}</h3>
+                <p>Female Students</p>
+            </div>
+        </div>
+
+        <div class="table-container">
+            {% if admissions %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>DOB</th>
+                        <th>Gender</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Class</th>
+                        <th>Guardian</th>
+                        <th>Guardian Contact</th>
+                        <th>Previous Board</th>
+                        <th>Enrolled Board</th>
+                        <th>Program</th>
+                        <th>Subjects</th>
+                        <th>Submitted On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for admission in admissions %}
+                    <tr>
+                        <td>{{ admission.id }}</td>
+                        <td><strong>{{ admission.student_name }}</strong></td>
+                        <td>{{ admission.date_of_birth }}</td>
+                        <td>
+                            <span class="badge badge-{{ admission.gender.lower() }}">
+                                {{ admission.gender }}
+                            </span>
+                        </td>
+                        <td>{{ admission.email }}</td>
+                        <td>{{ admission.contact_number }}</td>
+                        <td>{{ admission.class_enroll }}</td>
+                        <td>{{ admission.guardian_name }}</td>
+                        <td>{{ admission.guardian_contact }}</td>
+                        <td>{{ admission.previous_board }}</td>
+                        <td>{{ admission.enrolled_board }}</td>
+                        <td>{{ admission.program_enrolled }}</td>
+                        <td class="subjects-list">{{ admission.subjects or 'N/A' }}</td>
+                        <td>{{ admission.created_at.strftime('%Y-%m-%d %H:%M') if admission.created_at else 'N/A' }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="no-data">
+                <p>📋 No admission applications yet.</p>
+                <p style="font-size: 0.9em; margin-top: 10px;">Applications will appear here once students submit the
+                    admission form.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>

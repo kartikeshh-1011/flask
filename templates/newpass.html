@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Password</title>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='newpass.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
+</head>
+
+<body>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash-message flash-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <div class="form-box">
+
+            <!-- IMPORTANT FIXES HERE -->
+            <form method="POST" action="/new-password">
+                <h1>New Password</h1>
+
+                <div class="input-box">
+                    <input type="password" name="new_password" placeholder="Enter The New Password" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <button type="submit" class="btn">Reset Password</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
