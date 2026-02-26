@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS teachers (
     qualification VARCHAR(100),
     experience_years INT,
     office_hours VARCHAR(50),
-    room_number VARCHAR(20),
+    room_number VARCHAR(100),
     rating DECIMAL(2,1),
     is_class_teacher BOOLEAN DEFAULT FALSE,
     class_assigned VARCHAR(10),
@@ -116,6 +116,165 @@ CREATE TABLE IF NOT EXISTS class_schedule (
     FOREIGN KEY (subject_id) REFERENCES subjects(subject_id),
     FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id)
 );
+
+-- 9. TEACHER ADMISSIONS TABLE
+CREATE TABLE IF NOT EXISTS teacher_admissions (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phone VARCHAR(20),
+    subject VARCHAR(100),
+    qualification VARCHAR(255),
+    photo_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 10. STUDENT ADMISSION TABLES (GRADES)
+CREATE TABLE IF NOT EXISTS admissions_primary (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    date_of_birth DATE,
+    contact_number VARCHAR(20),
+    class_enroll VARCHAR(50),
+    gender VARCHAR(20),
+    guardian_name VARCHAR(100),
+    photo_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- (Explicitly defining all grade tables)
+CREATE TABLE IF NOT EXISTS admissions_v (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    date_of_birth DATE,
+    contact_number VARCHAR(20),
+    class_enroll VARCHAR(50),
+    gender VARCHAR(20),
+    guardian_name VARCHAR(100),
+    photo_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS admissions_vi (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    date_of_birth DATE,
+    contact_number VARCHAR(20),
+    class_enroll VARCHAR(50),
+    gender VARCHAR(20),
+    guardian_name VARCHAR(100),
+    photo_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS admissions_vii (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    date_of_birth DATE,
+    contact_number VARCHAR(20),
+    class_enroll VARCHAR(50),
+    gender VARCHAR(20),
+    guardian_name VARCHAR(100),
+    photo_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS admissions_viii (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    date_of_birth DATE,
+    contact_number VARCHAR(20),
+    class_enroll VARCHAR(50),
+    gender VARCHAR(20),
+    guardian_name VARCHAR(100),
+    photo_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS admissions_ix (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    date_of_birth DATE,
+    contact_number VARCHAR(20),
+    class_enroll VARCHAR(50),
+    gender VARCHAR(20),
+    guardian_name VARCHAR(100),
+    photo_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS admissions_x (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    date_of_birth DATE,
+    contact_number VARCHAR(20),
+    class_enroll VARCHAR(50),
+    gender VARCHAR(20),
+    guardian_name VARCHAR(100),
+    photo_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS admissions_xi (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    date_of_birth DATE,
+    contact_number VARCHAR(20),
+    class_enroll VARCHAR(50),
+    gender VARCHAR(20),
+    guardian_name VARCHAR(100),
+    photo_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS admissions_xii (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    date_of_birth DATE,
+    contact_number VARCHAR(20),
+    class_enroll VARCHAR(50),
+    gender VARCHAR(20),
+    guardian_name VARCHAR(100),
+    photo_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- 11. CONTACTS & FEEDBACK & COMPLAINTS
+CREATE TABLE IF NOT EXISTS contacts (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS feedback (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    feedback TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS complaints (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    contact VARCHAR(20),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 -- ============================================
 -- INSERT SAMPLE DATA

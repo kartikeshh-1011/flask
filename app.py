@@ -181,8 +181,18 @@ def send_otp():
             })
 
     except Exception as e:
-        print(f"SEND OTP ERROR: {e}")
-        return jsonify({'success': False, 'message': 'Failed to send the verification code. Please try again.'}), 500
+        import traceback
+        error_msg = traceback.format_exc()
+        print(f"\nCRITICAL SEND OTP ERROR:\n{error_msg}")
+        # Identify if it's a DB error or SMTP error
+        if "mysql" in str(e).lower():
+            friendly_msg = f"Database Error: {str(e)}"
+        elif "smtplib" in str(e).lower() or "authentication" in str(e).lower():
+            friendly_msg = "Email Server Error: Please check your MAIL_PASSWORD app password."
+        else:
+            friendly_msg = f"Unexpected Error: {str(e)}"
+            
+        return jsonify({'success': False, 'message': f'Failed to send verification code. {friendly_msg}'}), 500
 
 
 
