@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='student_profile.css') }}">
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Student Profile</h1>
+            <a href="/admin" class="back-btn">← Back to dashboard</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="avatar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="profile-info">
+                    <h2 class="student-name">{{ student.student_name }}</h2>
+                    <p class="student-id">{{ student.email }}</p>
+                    <span class="status-badge active">{{ student.status if student.status else 'Active' }}</span>
+                </div>
+            </div>
+
+            <div class="profile-body">
+                <div class="info-section">
+                    <h3>Personal Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Full Name</span>
+                            <span class="value">{{ student.student_name }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Class</span>
+                            <span class="value">{{ student.class_enroll }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Email</span>
+                            <span class="value">{{ student.email }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Phone</span>
+                            <span class="value">{{ student.contact_number }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Date of Birth</span>
+                            <span class="value">{{ student.date_of_birth }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Gender</span>
+                            <span class="value">{{ student.gender }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Program Enrolled</span>
+                            <span class="value">{{ student.program_enrolled }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Admission Date</span>
+                            <span class="value">{{ student.created_at.strftime('%d %b %Y') if student.created_at else
+                                'N/A' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Academic Details</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Enrolled Board</span>
+                            <span class="value">{{ student.enrolled_board }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Enrolled School</span>
+                            <span class="value">{{ student.enrolled_school if student.enrolled_school else 'N/A'
+                                }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Previous Board</span>
+                            <span class="value">{{ student.previous_board }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Previous School</span>
+                            <span class="value">{{ student.previous_school if student.previous_school else 'N/A'
+                                }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Previous Percentage</span>
+                            <span class="value">{{ student.percentage_obtained if student.percentage_obtained else 'N/A'
+                                }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Subjects Enrolled</h3>
+                    <div class="subjects-grid">
+                        {% if student.subjects %}
+                        {% set subject_list = student.subjects.split(', ') %}
+                        {% for subject in subject_list %}
+                        <div class="subject-box">
+                            <span class="subject-name">{{ subject }}</span>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="info-item" style="grid-column: 1 / -1;">
+                            <span class="value">No subjects selected</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="info-section" style="display: none;">
+                    <h3>Syllabus Progress</h3>
+                    <div class="syllabus-grid">
+                        <div class="syllabus-item">
+                            <div class="syllabus-header">
+                                <span class="subject-name">Mathematics</span>
+                                <span class="progress-percentage">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                            <div class="syllabus-details">
+                                <span class="chapters-completed">17/20 Chapters</span>
+                            </div>
+                        </div>
+                        <div class="syllabus-item">
+                            <div class="syllabus-header">
+                                <span class="subject-name">Science</span>
+                                <span class="progress-percentage">72%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 72%"></div>
+                            </div>
+                            <div class="syllabus-details">
+                                <span class="chapters-completed">13/18 Chapters</span>
+                            </div>
+                        </div>
+                        <div class="syllabus-item">
+                            <div class="syllabus-header">
+                                <span class="subject-name">English</span>
+                                <span class="progress-percentage">90%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                            <div class="syllabus-details">
+                                <span class="chapters-completed">18/20 Chapters</span>
+                            </div>
+                        </div>
+                        <div class="syllabus-item">
+                            <div class="syllabus-header">
+                                <span class="subject-name">Hindi</span>
+                                <span class="progress-percentage">68%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 68%"></div>
+                            </div>
+                            <div class="syllabus-details">
+                                <span class="chapters-completed">10/15 Chapters</span>
+                            </div>
+                        </div>
+                        <div class="syllabus-item">
+                            <div class="syllabus-header">
+                                <span class="subject-name">Social Studies</span>
+                                <span class="progress-percentage">78%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 78%"></div>
+                            </div>
+                            <div class="syllabus-details">
+                                <span class="chapters-completed">14/18 Chapters</span>
+                            </div>
+                        </div>
+                        <div class="syllabus-item">
+                            <div class="syllabus-header">
+                                <span class="subject-name">Computer Science</span>
+                                <span class="progress-percentage">95%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 95%"></div>
+                            </div>
+                            <div class="syllabus-details">
+                                <span class="chapters-completed">19/20 Chapters</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Guardian Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Guardian Name</span>
+                            <span class="value">{{ student.guardian_name }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Guardian Occupation</span>
+                            <span class="value">{{ student.guardian_occupation if student.guardian_occupation else 'N/A'
+                                }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Guardian Contact</span>
+                            <span class="value">{{ student.guardian_contact }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Address</span>
+                            <span class="value">{{ student.guardian_address if student.guardian_address else 'N/A'
+                                }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>Class Schedule</h3>
+                    <div class="schedule-grid">
+                        <div class="schedule-card">
+                            <div class="day">Monday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="class-name">Mathematics</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="class-name">English</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">11:30 AM - 12:30 PM</span>
+                                    <span class="class-name">Science</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">1:30 PM - 2:30 PM</span>
+                                    <span class="class-name">Social Studies</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="day">Tuesday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="class-name">Hindi</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="class-name">Mathematics</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">11:30 AM - 12:30 PM</span>
+                                    <span class="class-name">Computer Science</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">1:30 PM - 2:30 PM</span>
+                                    <span class="class-name">Physical Education</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="day">Wednesday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="class-name">Science</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="class-name">English</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">11:30 AM - 12:30 PM</span>
+                                    <span class="class-name">Mathematics</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">1:30 PM - 2:30 PM</span>
+                                    <span class="class-name">Art & Craft</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="day">Thursday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="class-name">Social Studies</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="class-name">Hindi</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">11:30 AM - 12:30 PM</span>
+                                    <span class="class-name">English</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">1:30 PM - 2:30 PM</span>
+                                    <span class="class-name">Science</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="day">Friday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="class-name">Mathematics</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="class-name">Computer Science</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">11:30 AM - 12:30 PM</span>
+                                    <span class="class-name">Social Studies</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">1:30 PM - 2:30 PM</span>
+                                    <span class="class-name">Music</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="day">Saturday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="class-name">English</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="class-name">Science</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">11:30 AM - 12:30 PM</span>
+                                    <span class="class-name">Library Period</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">1:30 PM - 2:30 PM</span>
+                                    <span class="class-name">Sports</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>Recent Performance</h3>
+                    <div class="performance-cards">
+                        <div class="performance-card">
+                            <div class="subject-icon math">M</div>
+                            <div class="subject-details">
+                                <h4>Mathematics</h4>
+                                <div class="score">95/100</div>
+                                <div class="grade">A+</div>
+                            </div>
+                        </div>
+                        <div class="performance-card">
+                            <div class="subject-icon science">S</div>
+                            <div class="subject-details">
+                                <h4>Science</h4>
+                                <div class="score">88/100</div>
+                                <div class="grade">A</div>
+                            </div>
+                        </div>
+                        <div class="performance-card">
+                            <div class="subject-icon english">E</div>
+                            <div class="subject-details">
+                                <h4>English</h4>
+                                <div class="score">92/100</div>
+                                <div class="grade">A+</div>
+                            </div>
+                        </div>
+                        <div class="performance-card">
+                            <div class="subject-icon social">SS</div>
+                            <div class="subject-details">
+                                <h4>Social Studies</h4>
+                                <div class="score">85/100</div>
+                                <div class="grade">A</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cancel Admission Button -->
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0;">
+                <form action="/cancel-admission" method="POST"
+                    onsubmit="return confirm('Are you sure you want to cancel your admission? This action cannot be undone.');"
+                    style="display: inline;">
+                    <input type="hidden" name="email" value="{{ student.email }}">
+                    <button type="submit"
+                        style="background-color: #dc3545; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(220, 53, 69, 0.3);"
+                        onmouseover="this.style.backgroundColor='#c82333'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(220, 53, 69, 0.4)';"
+                        onmouseout="this.style.backgroundColor='#dc3545'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(220, 53, 69, 0.3)';">
+                        ❌ Cancel Admission
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 Admin Panel | All Rights Reserved
+    </div>
+</body>
+
+</html>

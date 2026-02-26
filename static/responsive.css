@@ -1,16 +1,22 @@
-/* ========================================
-   COMPREHENSIVE RESPONSIVE DESIGN
-   Mobile-First Approach for All Devices
-   ======================================== */
+/* =====================================================
+   APEX LEARNING HUB — RESPONSIVE CSS
+   Comprehensive mobile-first improvements
+   Covers: Header, Nav, Hero Slider, Forms, Dashboards,
+           Tables, Footer, Signup/Login pages
+   ===================================================== */
 
-/* ========== BASE MOBILE STYLES ========== */
-* {
+/* ===== GLOBAL BASE ===== */
+*,
+*::before,
+*::after {
     -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
 }
 
 html {
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -18,279 +24,570 @@ body {
     width: 100%;
 }
 
-/* ========== TABLET (768px - 1024px) ========== */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Hide hamburger toggle on desktop */
+.menu-toggle {
+    display: none;
+}
+
+/* =====================================================
+   TABLET  (max-width: 1024px)
+   ===================================================== */
 @media (max-width: 1024px) {
-    .container {
-        padding: 15px 20px !important;
+
+    /* Tighten header nav container padding only */
+    .top-header .container {
+        padding: 10px 20px;
     }
 
-    .menu ul {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
+    /* Compress menu items */
     .menu a {
-        padding: 12px 40px !important;
+        padding: 12px 10px !important;
+        font-size: 14px !important;
+    }
+
+    /* Slider */
+    .slider,
+    .slide img {
+        height: 400px !important;
+    }
+
+    /* Footer columns wrap */
+    .footer-top {
+        flex-wrap: wrap;
+        gap: 24px;
+        padding: 30px 30px !important;
+    }
+
+    .footer-box {
+        min-width: 160px;
     }
 }
 
-/* ========== MOBILE (max-width: 768px) ========== */
+/* =====================================================
+   MOBILE  (max-width: 768px)
+   ===================================================== */
 @media (max-width: 768px) {
 
-    /* ===== HEADER ===== */
+    /* ----- TOP ANNOUNCEMENT BAR ----- */
     #first {
         height: auto !important;
-        padding: 8px 10px !important;
-        font-size: 14px;
+        padding: 6px 55px 6px 8px !important;
+        font-size: 13px;
+        overflow: hidden;
     }
 
+    #news-content {
+        font-size: 13px !important;
+        padding-left: 0 !important;
+    }
+
+    #new {
+        left: 0 !important;
+        width: 52px !important;
+        font-size: 11px !important;
+        padding-top: 6px;
+        height: 100% !important;
+    }
+
+    /* ----- CONTACT BAR ----- */
     #second {
         height: auto !important;
-        padding: 8px 0 !important;
+        padding: 5px 12px !important;
     }
 
     #gmail {
-        padding-left: 10px !important;
-        font-size: 14px !important;
-        text-align: center;
+        padding-left: 0 !important;
+        font-size: 13px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         display: block;
     }
 
+    /* ----- HEADER / NAV ----- */
     .top-header {
         height: auto !important;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
     }
 
-    .container {
-        flex-direction: column !important;
+    /* Header row: logo left, hamburger + login right */
+    .top-header .container {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: space-between !important;
+        align-items: center !important;
         height: auto !important;
-        padding: 15px !important;
-        gap: 15px;
+        padding: 10px 14px !important;
+        gap: 8px;
     }
 
     .logo {
-        margin-bottom: 10px;
-        text-align: center;
-        width: 100%;
+        flex: 1;
+        width: auto;
+        margin-bottom: 0;
+        text-align: left;
     }
 
     .logo img {
-        width: 50px !important;
-        height: 50px !important;
+        width: 40px !important;
+        height: 40px !important;
     }
 
     .logo h1 {
-        font-size: 20px !important;
-    }
-
-    .right {
-        flex-direction: column !important;
-        gap: 10px;
-        width: 100%;
-    }
-
-    .call {
-        justify-content: center;
-        width: 100%;
-    }
-
-    .call i {
-        font-size: 18px !important;
-        padding: 8px !important;
-    }
-
-    .number {
-        font-size: 14px;
-    }
-
-    .login-btn {
-        width: 100% !important;
-        padding: 12px 20px !important;
         font-size: 16px !important;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 6px;
+        white-space: nowrap;
     }
 
-    /* ===== NAVIGATION MENU ===== */
+    /* Show hamburger button */
+    .menu-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: #29909d;
+        cursor: pointer;
+        padding: 8px;
+        background: none;
+        border: none;
+        border-radius: 8px;
+        transition: background 0.2s;
+        flex-shrink: 0;
+    }
+
+    .menu-toggle:hover {
+        background: #e8f7f8;
+    }
+
+    /* Right section: keep login/profile inline with toggle */
+    .right {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+        gap: 6px;
+        width: auto !important;
+        margin-top: 0 !important;
+        order: unset;
+    }
+
+    /* Hide phone-call block on mobile */
+    .call,
+    .mobile-hide {
+        display: none !important;
+    }
+
+    /* Login / Profile buttons compact */
+    .login-btn {
+        padding: 7px 14px !important;
+        font-size: 13px !important;
+        white-space: nowrap;
+    }
+
+    .profile-link {
+        font-size: 13px !important;
+        padding: 6px 10px !important;
+    }
+
+    .profile-link span {
+        display: none;
+        /* show only icon on mobile */
+    }
+
+    .user-profile-menu {
+        gap: 6px;
+    }
+
+    /* ----- MOBILE NAV MENU ----- */
     .menu {
-        overflow-x: auto;
+        display: none;
+        width: 100%;
+        background: #fff;
+        border-top: 2px solid #29909d;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu.active {
+        display: block;
     }
 
     .menu ul {
         flex-direction: column !important;
         align-items: stretch !important;
-        padding: 0 !important;
+        padding: 6px 0 !important;
+        background: #fff !important;
+        margin: 0;
     }
 
     .menu ul li {
         width: 100%;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #f0f0f0;
+        position: relative;
+    }
+
+    .menu ul li:last-child {
+        border-bottom: none;
     }
 
     .menu a {
-        padding: 15px 20px !important;
-        width: 100%;
+        padding: 13px 20px !important;
+        width: 100% !important;
         text-align: left !important;
-        font-size: 16px !important;
+        font-size: 15px !important;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
+    .menu a:hover,
+    .menu ul li:hover>a {
+        background: #e8f7f8 !important;
+        color: #29909d !important;
+    }
+
+    /* Dropdown submenus — full width, indented */
     .menu ul ul {
         position: static !important;
         width: 100% !important;
-        background: #f5f5f5 !important;
-        padding-left: 20px !important;
-    }
-
-    .menu ul ul ul {
-        padding-left: 40px !important;
-        background: #ececec !important;
+        background: #f9fbfc !important;
+        padding-left: 0 !important;
+        display: none;
+        box-shadow: none !important;
+        border-left: 3px solid #29909d;
     }
 
     .menu ul li:hover>ul {
         display: block;
     }
 
-    /* ===== SLIDER ===== */
-    .slider {
-        height: 250px !important;
+    .menu ul ul a {
+        padding-left: 36px !important;
+        font-size: 14px !important;
+        color: #555;
     }
 
+    .menu ul ul ul {
+        background: #f0f4f5 !important;
+        border-left: 3px solid #29629d;
+    }
+
+    .menu ul ul ul a {
+        padding-left: 54px !important;
+    }
+
+    /* ----- HERO SLIDER ----- */
+    .slider,
     .slide img {
-        height: 250px !important;
-        object-fit: cover;
+        height: 220px !important;
     }
 
-    /* ===== STAFF SECTION ===== */
+    /* ----- STAFF / TEAM CARDS ----- */
     .staff-section {
-        padding: 30px 15px !important;
+        padding: 28px 16px !important;
     }
 
     .staff-section h2 {
-        font-size: 24px !important;
+        font-size: 22px !important;
     }
 
     .subtitle {
         font-size: 13px !important;
-        padding: 0 10px;
+        padding: 0 8px;
     }
 
     .staff-container {
         flex-direction: column !important;
         align-items: center !important;
-        gap: 30px !important;
+        gap: 24px !important;
     }
 
     .staff-card {
-        width: 90% !important;
-        max-width: 300px;
+        width: 92% !important;
+        max-width: 280px;
     }
 
     .staff-card img {
-        width: 200px !important;
-        height: 200px !important;
+        width: 170px !important;
+        height: 170px !important;
     }
 
-    /* ===== FORMS (Login, Signup, Contact, etc) ===== */
-    .form-container,
-    .container.form-container {
-        width: 95% !important;
+    /* ----- HOME SECTIONS ----- */
+    .notes-section,
+    .reviews-section {
+        padding: 30px 14px !important;
+    }
+
+    .note-card {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+    .review-card {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+    .notes-container,
+    .reviews-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    /* ----- FORMS (Login, Signup, Forgot, Contact, etc) ----- */
+    /* Keep welcome-box as a compact header strip */
+    .container.form-container,
+    .form-container {
+        width: 97% !important;
         max-width: 100% !important;
         margin: 10px auto !important;
         flex-direction: column !important;
+        border-radius: 16px !important;
+        min-height: unset !important;
     }
 
+    /* Compact welcome strip on mobile (don't fully hide) */
     .welcome-box {
-        display: none !important;
-        /* Hide welcome image on mobile */
+        width: 100% !important;
+        flex-direction: row !important;
+        gap: 14px !important;
+        padding: 14px 18px !important;
+        justify-content: center !important;
+        border-radius: 0 !important;
+        background: linear-gradient(90deg, #e8f7f8, #c9d6ff55) !important;
+    }
+
+    .welcome-box img {
+        width: 44px !important;
+        border-radius: 8px;
+    }
+
+    .welcome-box h2 {
+        font-size: 1rem !important;
+        margin-top: 0 !important;
+        align-self: center;
     }
 
     .form-box {
         width: 100% !important;
-        padding: 25px 20px !important;
-    }
-
-    .form-box.signup {
-        width: 100% !important;
+        padding: 24px 18px 32px !important;
     }
 
     .form-box h1 {
-        font-size: 24px !important;
+        font-size: 22px !important;
+        margin-bottom: 18px !important;
     }
 
     .input-box input,
+    select,
     .input-box select,
-    .input-box textarea {
+    .input-box textarea,
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
         font-size: 16px !important;
-        /* Prevents zoom on iOS */
-        padding: 12px !important;
+        height: auto !important;
+        min-height: 48px;
+        width: 100% !important;
     }
 
     .btn,
     button[type="submit"] {
-        padding: 14px !important;
         font-size: 16px !important;
+        padding: 14px !important;
+        width: 100% !important;
     }
 
-    /* ===== CONTACT PAGE ===== */
-    .contact {
+    /* Email verify button in signup — compact on very small screens */
+    .verify-btn {
+        padding: 0 11px !important;
+        font-size: 12px !important;
+        height: auto;
+        min-height: 48px;
+    }
+
+    /* OTP digit boxes — slightly smaller */
+    .otp-digit {
+        width: 46px !important;
+        height: 52px !important;
+        font-size: 22px !important;
+    }
+
+    /* ----- ADMISSION FORM ----- */
+    .form-row {
         flex-direction: column !important;
-        padding: 15px !important;
+        gap: 0 !important;
     }
 
+    .form-col {
+        width: 100% !important;
+    }
+
+    /* ----- CONTACT PAGE ----- */
+    .contact,
     .container1 {
         flex-direction: column !important;
-        padding: 0 !important;
-    }
-
-    .contactInfo {
-        width: 100% !important;
-        padding: 20px !important;
-        margin-bottom: 20px;
-    }
-
-    .contactForm {
-        width: 100% !important;
-        padding: 20px !important;
-    }
-
-    .box {
-        margin: 15px 0 !important;
-    }
-
-    .box .icon {
-        font-size: 20px !important;
-    }
-
-    .box .text h3 {
-        font-size: 16px !important;
-    }
-
-    .box .text p {
-        font-size: 14px !important;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group input,
-    .form-group textarea {
-        width: 100% !important;
-        font-size: 16px !important;
         padding: 12px !important;
     }
 
-    /* ===== FOOTER ===== */
+    .contactInfo,
+    .contactForm {
+        width: 100% !important;
+        padding: 18px !important;
+        margin-bottom: 16px;
+    }
+
+    /* ----- STUDENT / TEACHER DASHBOARD ----- */
+    /* Profile section: stack cards */
+    .profile-section {
+        grid-template-columns: 1fr !important;
+        gap: 14px;
+    }
+
+    .profile-card {
+        padding: 20px 16px !important;
+    }
+
+    /* Quick stats: 2 columns */
+    .quick-stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 14px 12px !important;
+        gap: 10px;
+    }
+
+    .stat-info h3 {
+        font-size: 22px !important;
+    }
+
+    .stat-info p {
+        font-size: 11px !important;
+    }
+
+    .stat-icon {
+        font-size: 28px !important;
+    }
+
+    /* Tabs content padding */
+    .tabs-content {
+        padding: 20px 14px !important;
+    }
+
+    .tab-title {
+        font-size: 20px !important;
+    }
+
+    /* Grids collapse to single column */
+    .notes-grid,
+    .syllabus-grid,
+    .test-grid,
+    .teachers-grid,
+    .dashboard-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Teacher card on student page - full width */
+    .teacher-card-large {
+        padding: 24px 16px !important;
+    }
+
+    .teacher-stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Schedule items: stack time/subject/teacher */
+    .schedule-item {
+        grid-template-columns: 1fr !important;
+        gap: 4px !important;
+        padding: 12px !important;
+    }
+
+    /* ----- ADMIN DASHBOARD ----- */
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px;
+    }
+
+    .stat-number {
+        font-size: 24px !important;
+    }
+
+    /* Admin table: scroll horizontally (don't reformat into blocks — easier to read) */
+    .table-wrapper,
+    .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
+    }
+
+    table {
+        font-size: 13px !important;
+        min-width: 540px;
+        /* force scroll rather than cramping */
+        white-space: nowrap;
+    }
+
+    th,
+    td {
+        padding: 9px 8px !important;
+    }
+
+    /* Search bar full width */
+    .search-container {
+        width: 97% !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .search-input {
+        width: 100% !important;
+        font-size: 16px !important;
+    }
+
+    /* ----- FLASH MESSAGES ----- */
+    .flash-messages,
+    .toast-container {
+        top: 8px !important;
+        right: 8px !important;
+        left: 8px !important;
+        max-width: none !important;
+    }
+
+    .flash-message,
+    .toast {
+        min-width: unset !important;
+        padding: 12px 14px !important;
+        font-size: 13px !important;
+    }
+
+    /* ----- FOOTER ----- */
     .footer-top {
         flex-direction: column !important;
-        padding: 30px 20px !important;
+        padding: 24px 16px !important;
+        gap: 20px;
         text-align: center;
     }
 
     .footer-box {
-        margin: 20px 0 !important;
         width: 100%;
+        margin: 0 !important;
     }
 
     .footer-box h3 {
-        font-size: 18px !important;
+        font-size: 16px !important;
     }
 
     .footer-box ul li {
@@ -298,35 +595,31 @@ body {
     }
 
     .social-icons {
-        display: flex;
         justify-content: center;
         flex-wrap: wrap;
     }
 
-    .social-icons i {
-        margin: 5px !important;
-    }
-
     hr {
-        margin: 0 20px !important;
+        margin: 0 14px !important;
     }
 
     .footer-bottom {
         flex-direction: column !important;
-        gap: 20px;
+        gap: 16px;
         text-align: center;
-        padding: 20px !important;
+        padding: 18px 16px !important;
     }
 
     .info {
         flex-direction: column !important;
-        margin-bottom: 15px;
+        align-items: center;
         text-align: center;
+        margin-bottom: 12px;
     }
 
     .info i {
         margin-right: 0 !important;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
     }
 
     .complain {
@@ -338,147 +631,219 @@ body {
         padding: 12px !important;
     }
 
-    /* ===== TABLES ===== */
-    table {
-        font-size: 12px !important;
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-
-    th,
-    td {
-        padding: 8px 5px !important;
-    }
-
-    /* ===== FLASH MESSAGES ===== */
-    .flash-messages {
-        position: fixed !important;
-        top: 10px !important;
-        right: 10px !important;
-        left: 10px !important;
-        max-width: none !important;
-        z-index: 9999;
-    }
-
-    .flash-message {
-        padding: 12px 15px !important;
-        font-size: 14px !important;
-        margin-bottom: 8px;
+    /* ----- TOUCH TARGETS ----- */
+    a,
+    button,
+    .btn,
+    input[type="submit"],
+    .tab-btn {
+        min-height: 44px;
     }
 }
 
-/* ========== SMALL MOBILE (max-width: 480px) ========== */
+/* =====================================================
+   SMALL MOBILE  (max-width: 480px)
+   ===================================================== */
 @media (max-width: 480px) {
 
     html {
-        font-size: 14px;
+        font-size: 15px;
+    }
+
+    /* Logo even smaller */
+    .logo img {
+        width: 34px !important;
+        height: 34px !important;
     }
 
     .logo h1 {
-        font-size: 18px !important;
+        font-size: 14px !important;
     }
 
-    .menu a {
-        padding: 12px 15px !important;
-        font-size: 15px !important;
-    }
-
-    .slider {
-        height: 200px !important;
-    }
-
+    /* Slider shorter */
+    .slider,
     .slide img {
-        height: 200px !important;
+        height: 175px !important;
     }
 
-    .staff-section h2 {
-        font-size: 20px !important;
-    }
-
+    /* Staff cards */
     .staff-card img {
-        width: 180px !important;
-        height: 180px !important;
+        width: 150px !important;
+        height: 150px !important;
     }
 
+    /* Quick stats single column */
+    .quick-stats {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Admin stats single column */
+    .stats-container {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Form box less padding */
     .form-box {
-        padding: 20px 15px !important;
+        padding: 18px 14px 28px !important;
     }
 
     .form-box h1 {
-        font-size: 22px !important;
+        font-size: 20px !important;
     }
 
-    .btn {
-        padding: 12px !important;
-        font-size: 15px !important;
+    /* OTP boxes smallest */
+    .otp-digit {
+        width: 40px !important;
+        height: 46px !important;
+        font-size: 18px !important;
     }
 
+    .otp-inputs {
+        gap: 7px;
+    }
+
+    /* Teacher/student tabs — smaller font */
+    .tab-btn {
+        font-size: 12px !important;
+        padding: 10px 12px !important;
+    }
+
+    .tab-title {
+        font-size: 18px !important;
+    }
+
+    /* Contact items stack */
+    .contact-item {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px;
+    }
+
+    /* Footer */
     .footer-top {
-        padding: 20px 15px !important;
+        padding: 18px 12px !important;
     }
 
     .footer-bottom {
-        padding: 15px !important;
+        padding: 14px 12px !important;
     }
 }
 
-/* ========== LANDSCAPE MODE (Mobile) ========== */
-@media (max-height: 500px) and (orientation: landscape) {
-    .slider {
-        height: 300px !important;
-    }
+/* =====================================================
+   LANDSCAPE MOBILE  (height < 480px, landscape)
+   ===================================================== */
+@media (max-height: 480px) and (orientation: landscape) {
 
+    .slider,
     .slide img {
-        height: 300px !important;
+        height: 200px !important;
+    }
+
+    .form-box {
+        padding: 14px 16px !important;
     }
 }
 
-/* ========== UTILITY CLASSES ========== */
+/* =====================================================
+   UTILITY CLASSES
+   ===================================================== */
 @media (max-width: 768px) {
     .mobile-hide {
         display: none !important;
+    }
+
+    .mobile-show {
+        display: block !important;
     }
 
     .mobile-center {
         text-align: center !important;
     }
 
-    .mobile-full-width {
+    .mobile-full {
         width: 100% !important;
     }
 }
 
-/* ========== FLASH MESSAGES (All Devices) ========== */
-.flash-messages {
+@media (min-width: 769px) {
+    .desktop-hide {
+        display: none !important;
+    }
+}
+
+/* =====================================================
+   FLASH / TOAST  (all sizes)
+   ===================================================== */
+.flash-messages,
+.toast-container {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 18px;
+    right: 18px;
     z-index: 9999;
-    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 380px;
 }
 
-.flash-message {
-    padding: 15px 20px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    animation: slideIn 0.3s ease-out;
+.flash-message,
+.toast {
+    min-width: 280px;
+    padding: 14px 18px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    animation: toastIn 0.3s ease forwards;
+    border-left: 5px solid #29909d;
 }
 
-.flash-success {
-    background-color: #4CAF50;
-    color: white;
+.flash-message.fade-out {
+    animation: toastOut 0.3s ease forwards;
 }
 
-.flash-error {
-    background-color: #f44336;
-    color: white;
+.flash-success,
+.toast-success {
+    border-left-color: #2ecc71;
 }
 
-@keyframes slideIn {
+.flash-error,
+.flash-danger,
+.toast-error {
+    border-left-color: #e74c3c;
+}
+
+.flash-warning,
+.toast-warning {
+    border-left-color: #f39c12;
+}
+
+.flash-info,
+.toast-info {
+    border-left-color: #3498db;
+}
+
+.close-flash {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #aaa;
+    padding: 4px;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.close-flash:hover {
+    color: #333;
+}
+
+@keyframes toastIn {
     from {
-        transform: translateX(400px);
+        transform: translateX(100%);
         opacity: 0;
     }
 
@@ -488,34 +853,14 @@ body {
     }
 }
 
-@keyframes slideOut {
+@keyframes toastOut {
     from {
         transform: translateX(0);
         opacity: 1;
     }
 
     to {
-        transform: translateX(400px);
+        transform: translateX(100%);
         opacity: 0;
-    }
-}
-
-/* ========== TOUCH IMPROVEMENTS ========== */
-@media (max-width: 768px) {
-
-    a,
-    button,
-    .btn,
-    input[type="submit"] {
-        min-height: 44px;
-        /* Apple's recommended touch target */
-        min-width: 44px;
-    }
-
-    /* Improve tap targets */
-    .menu a,
-    .footer-box ul li,
-    .social-icons i {
-        padding: 12px !important;
     }
 }

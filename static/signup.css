@@ -1,3 +1,7 @@
+/* ============================================================
+   SIGNUP PAGE CSS — Clean version (no !important hacks needed
+   since responsive.css is now scoped to .top-header .container)
+   ============================================================ */
 
 * {
     margin: 0;
@@ -12,27 +16,55 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+    padding: 20px;
 }
 
+/* ===== Main Container ===== */
 .container {
-    width: 850px;
-    height: 550px;
+    width: 100%;
+    max-width: 850px;
+    min-height: 520px;
     background: #fff;
     border-radius: 30px;
-    box-shadow: 0 10px 25px #29909d;
-    position: relative;
+    box-shadow: 0 10px 25px #29909d55;
+    display: flex;
+    flex-direction: row;
     overflow: hidden;
 }
 
+/* ===== Welcome Panel (left side) ===== */
+.welcome-box {
+    width: 42%;
+    background: linear-gradient(135deg, #29909d22, #c9d6ff55);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 30px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.welcome-box img {
+    width: min(200px, 80%);
+    height: auto;
+    border-radius: 12px;
+    object-fit: contain;
+}
+
+.welcome-box h2 {
+    margin-top: 18px;
+    color: #29909d;
+    font-size: 1.4rem;
+}
+
+/* ===== Form Panel (right side) ===== */
 .form-box {
-    width: 50%;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    padding: 40px;
+    flex: 1;
     display: flex;
     align-items: center;
-    text-align: center;
+    justify-content: center;
+    padding: 36px 32px;
 }
 
 form {
@@ -40,76 +72,400 @@ form {
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 1.9rem;
     margin-bottom: 20px;
+    color: #222;
 }
 
+/* ===== Inputs ===== */
 .input-box {
-    margin: 20px 0;
+    margin: 14px 0;
     position: relative;
-}
-
-h5 {
-    text-align: left;
-    color: #888;
-    margin-bottom: 5px;
 }
 
 select,
 .input-box input {
     width: 100%;
-    height: 45px;
+    height: 48px;
     background: #eee;
-    border-radius: 8px;
+    border-radius: 10px;
     border: none;
-    padding: 0 15px;
-    font-size: 16px;
+    padding: 0 42px 0 15px;
+    font-size: 15px;
+    outline: none;
+    transition: background 0.2s;
 }
 
-.input-box i {
+select:focus,
+.input-box input:focus {
+    background: #dff3f5;
+}
+
+.input-box>i {
     position: absolute;
     right: 15px;
     top: 50%;
     transform: translateY(-50%);
     color: #888;
+    pointer-events: none;
 }
 
+/* Reset icon positioning inside the verify button */
+.verify-btn i {
+    position: static;
+    transform: none;
+    color: inherit;
+    pointer-events: none;
+}
+
+/* ===== Button ===== */
 .btn {
     width: 100%;
     height: 48px;
     background: #29909d;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 6px;
+    transition: background 0.2s;
 }
 
+.btn:hover {
+    background: #1d7280;
+}
+
+/* ===== Social / text ===== */
 .container p {
-    margin: 15px 0;
-    font-size: 14px;
+    margin: 14px 0 10px;
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
 }
 
 .social-icons a {
     font-size: 22px;
     border: 2px solid #ccc;
-    padding: 6px;
+    padding: 7px 12px;
     border-radius: 8px;
     margin: 0 5px;
     color: #333;
+    transition: border-color 0.2s;
 }
 
-.welcome-box {
-    width: 50%;
-    text-align: center;
-    padding-top: 80px;
-}
-
-.welcome-box img {
-    width: 280px;
-}
-
-.welcome-box h2 {
-    margin-top: 15px;
+.social-icons a:hover {
+    border-color: #29909d;
     color: #29909d;
+}
+
+/* ===== EMAIL + VERIFY BUTTON ROW ===== */
+.email-verify-box {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.email-verify-box input[type="email"] {
+    flex: 1;
+    border-radius: 10px 0 0 10px;
+    padding-right: 15px;
+}
+
+.email-verify-box .fa-envelope {
+    display: none;
+}
+
+.verify-btn {
+    height: 48px;
+    padding: 0 14px;
+    background: #29909d;
+    color: #fff;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+}
+
+.verify-btn:hover {
+    background: #1d7280;
+}
+
+.verify-btn:active {
+    transform: scale(0.97);
+}
+
+.verify-btn:disabled {
+    background: #8bbdc4;
+    cursor: not-allowed;
+}
+
+/* ===== OTP BLOCK ===== */
+.otp-block {
+    display: none;
+    background: linear-gradient(135deg, #e8f7f8, #f0f9fa);
+    border: 1.5px solid #b6dfe3;
+    border-radius: 14px;
+    padding: 18px 16px 14px;
+    margin: 4px 0 8px;
+    animation: slideDown 0.28s ease;
+}
+
+.otp-block.show {
+    display: block;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.otp-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.otp-icon {
+    font-size: 26px;
+    color: #29909d;
+    flex-shrink: 0;
+}
+
+.otp-label {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+    text-align: left;
+}
+
+.otp-email-target {
+    font-size: 13px;
+    font-weight: 700;
+    color: #29909d;
+    margin: 2px 0 0;
+    text-align: left;
+    word-break: break-all;
+}
+
+/* OTP digit boxes */
+.otp-inputs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.otp-digit {
+    width: 52px;
+    height: 56px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #29909d;
+    background: #fff;
+    border: 2px solid #b6dfe3;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    caret-color: #29909d;
+}
+
+.otp-digit:focus {
+    border-color: #29909d;
+    box-shadow: 0 0 0 3px #29909d28;
+}
+
+/* OTP action buttons */
+.otp-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.otp-submit-btn {
+    flex: 1;
+    height: 42px;
+    font-size: 14px;
+    margin-top: 0;
+}
+
+.resend-btn {
+    height: 42px;
+    padding: 0 14px;
+    background: transparent;
+    color: #29909d;
+    border: 1.5px solid #29909d;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+}
+
+.resend-btn:hover {
+    background: #29909d;
+    color: #fff;
+}
+
+.otp-status {
+    margin: 8px 0 0;
+    font-size: 12.5px;
+    text-align: center;
+    min-height: 18px;
+}
+
+.otp-status--success {
+    color: #1a8f4e;
+}
+
+.otp-status--error {
+    color: #d63939;
+}
+
+/* ===== EMAIL VERIFIED BADGE ===== */
+.email-verified-badge {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: #e6f8ef;
+    border: 1.5px solid #81d4a6;
+    border-radius: 10px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a8f4e;
+    margin: 4px 0 8px;
+    animation: slideDown 0.25s ease;
+}
+
+.email-verified-badge.show {
+    display: flex;
+}
+
+.email-verified-badge i {
+    font-size: 16px;
+}
+
+#signupSubmitBtn:disabled {
+    background: #9ac8cd;
+    cursor: not-allowed;
+}
+
+/* ===== MOBILE (≤768px) ===== */
+@media (max-width: 768px) {
+    body {
+        align-items: center;
+        padding: 14px;
+    }
+
+    .container {
+        flex-direction: column;
+        min-height: unset;
+        border-radius: 20px;
+    }
+
+    /* Welcome box → compact horizontal strip */
+    .welcome-box {
+        width: 100%;
+        flex-direction: row;
+        gap: 14px;
+        padding: 14px 18px;
+        justify-content: center;
+        text-align: left;
+        border-radius: 0;
+        border-bottom: 2px solid #cce9ec;
+    }
+
+    .welcome-box img {
+        width: 48px;
+        flex-shrink: 0;
+    }
+
+    .welcome-box h2 {
+        margin-top: 0;
+        font-size: 1.05rem;
+        align-self: center;
+    }
+
+    .form-box {
+        padding: 20px 16px 28px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 14px;
+    }
+
+    select,
+    .input-box input {
+        font-size: 16px;
+        /* prevent iOS auto-zoom */
+        height: 50px;
+    }
+
+    .btn {
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .verify-btn {
+        height: 50px;
+    }
+}
+
+/* ===== SMALL MOBILE (≤480px) ===== */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .welcome-box {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .welcome-box img {
+        width: 40px;
+    }
+
+    .welcome-box h2 {
+        font-size: 0.95rem;
+    }
+
+    .form-box {
+        padding: 16px 14px 24px;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    .otp-digit {
+        width: 44px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .verify-btn {
+        padding: 0 10px;
+        font-size: 12px;
+    }
 }

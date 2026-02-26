@@ -20,7 +20,8 @@
     <div class="flash-messages">
         {% for category, message in messages %}
         <div class="flash-message flash-{{ category }}">
-            {{ message }}
+            <span>{{ message }}</span>
+            <button class="close-flash">&times;</button>
         </div>
         {% endfor %}
     </div>
@@ -52,6 +53,7 @@
                     <button type="button" onclick="setRole('Admin')">Admin</button>
                     <button type="button" onclick="setRole('Teacher')">Teacher</button>
                     <button type="button" onclick="setRole('Student')">Student</button>
+                    <button type="button" onclick="setRole('Parent')">Parent</button>
                 </div>
 
                 <p class="signup">
@@ -60,6 +62,7 @@
             </form>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='flash-utils.js') }}"></script>
     <script src="{{url_for('static',filename='login.js')}}"></script>
 </body>
 

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stud.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='global-ui.css') }}">
+</head>
+
+<body>
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash-message flash-{{ category }}">
+            <span>{{ message }}</span>
+            <button class="close-flash">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>Student Dashboard</h1>
+            <a href="{{ url_for('home') }}" class="back-btn">← Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-card">
+                <div class="avatar" style="overflow:hidden; border-radius:50%; background:#e8f4f8;">
+                    {% if student and student.photo_path %}
+                    <img src="{{ student.photo_path }}" alt="Student Photo"
+                        style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    {% endif %}
+                </div>
+                <div class="profile-info">
+                    <h2 class="student-name">{{ student.student_name if student else username }}</h2>
+                    <p class="student-details">{{ 'Class ' + student.class_enroll if student and student.class_enroll
+                        else 'Not Enrolled' }}</p>
+                    <p class="student-id">Email: {{ student.email if student else 'N/A' }}</p>
+                    <span class="status-badge">{{ student.status if student and student.status else 'Active' }}</span>
+                </div>
+            </div>
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📧</div>
+                    <div class="stat-info">
+                        <h3>{{ student.email if student else 'N/A' }}</h3>
+                        <p>Email</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📞</div>
+                    <div class="stat-info">
+                        <h3>{{ student.contact_number if student else 'N/A' }}</h3>
+                        <p>Phone</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏫</div>
+                    <div class="stat-info">
+                        <h3>{{ student.class_enroll if student else 'N/A' }}</h3>
+                        <p>Class</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-tab="notes">📝 Notes</button>
+                <button class="tab-btn" data-tab="timetable">📅 Timetable</button>
+                <button class="tab-btn" data-tab="syllabus">📖 Syllabus Progress</button>
+                <button class="tab-btn" data-tab="attendance">📋 Attendance Record</button>
+                <button class="tab-btn" data-tab="tests">📊 Test Progress</button>
+                <button class="tab-btn" data-tab="class-teacher">👨‍🏫 Class Teacher</button>
+                <button class="tab-btn" data-tab="subject-teachers">👥 Subject Teachers</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tabs-content">
+                <!-- Notes Tab -->
+                <div class="tab-pane active" id="notes">
+                    <h2 class="tab-title">My Notes</h2>
+                    <div class="notes-grid">
+                        <div class="note-card">
+                            <div class="note-header">
+                                <h3>Mathematics - Chapter 5</h3>
+                                <span class="note-date">Feb 3, 2026</span>
+                            </div>
+                            <p class="note-content">Quadratic equations formulas and important theorems. Remember to
+                                practice discriminant problems.</p>
+                            <div class="note-footer">
+                                <span class="note-tag">Algebra</span>
+                                <button class="note-action">View Full</button>
+                            </div>
+                        </div>
+                        <div class="note-card">
+                            <div class="note-header">
+                                <h3>Science - Physics</h3>
+                                <span class="note-date">Feb 2, 2026</span>
+                            </div>
+                            <p class="note-content">Newton's laws of motion. Focus on numerical problems for exam
+                                preparation.</p>
+                            <div class="note-footer">
+                                <span class="note-tag">Physics</span>
+                                <button class="note-action">View Full</button>
+                            </div>
+                        </div>
+                        <div class="note-card">
+                            <div class="note-header">
+                                <h3>English - Grammar</h3>
+                                <span class="note-date">Feb 1, 2026</span>
+                            </div>
+                            <p class="note-content">Active and passive voice rules. Practice transformation exercises
+                                daily.</p>
+                            <div class="note-footer">
+                                <span class="note-tag">Grammar</span>
+                                <button class="note-action">View Full</button>
+                            </div>
+                        </div>
+                        <div class="note-card">
+                            <div class="note-header">
+                                <h3>Social Studies - History</h3>
+                                <span class="note-date">Jan 30, 2026</span>
+                            </div>
+                            <p class="note-content">Indian Independence Movement - Key dates and important leaders to
+                                remember.</p>
+                            <div class="note-footer">
+                                <span class="note-tag">History</span>
+                                <button class="note-action">View Full</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timetable Tab -->
+                <div class="tab-pane" id="timetable">
+                    <h2 class="tab-title">Subject Timetable</h2>
+                    <div class="timetable-container" id="scheduleDisplay">
+                        <div style="text-align: center; padding: 20px;">Loading schedule...</div>
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        // Fetch schedule when timetable tab is clicked or on load if active
+                        const timetableTabBtn = document.querySelector('button[data-tab="timetable"]');
+                        timetableTabBtn.addEventListener('click', fetchStudentSchedule);
+
+                        // If timetable is active by default (it's not, notes is), but just in case
+                        if (timetableTabBtn.classList.contains('active')) {
+                            fetchStudentSchedule();
+                        }
+                    });
+
+                    let studentScheduleData = {};
+
+                    function fetchStudentSchedule() {
+                        fetch('/get-schedule')
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    studentScheduleData = data.schedule;
+                                    renderStudentSchedule();
+                                } else {
+                                    document.getElementById('scheduleDisplay').innerHTML =
+                                        `<div style="text-align: center; color: red;">${data.message}</div>`;
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error fetching schedule:', error);
+                                document.getElementById('scheduleDisplay').innerHTML =
+                                    '<div style="text-align: center; color: red;">Error loading schedule.</div>';
+                            });
+                    }
+
+                    function renderStudentSchedule() {
+                        const container = document.getElementById('scheduleDisplay');
+                        container.innerHTML = '';
+
+                        const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+                        const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+                        let hasSchedule = false;
+
+                        days.forEach((day, idx) => {
+                            const lectures = studentScheduleData[day];
+                            if (lectures && lectures.length > 0) {
+                                hasSchedule = true;
+                                let dayHTML = `
+                                <div class="day-schedule">
+                                    <h3 class="day-name">${dayNames[idx]}</h3>
+                                    <div class="schedule-items">
+                                `;
+
+                                lectures.sort((a, b) => {
+                                    // Parse time to sort if needed, current assumption is format "HH:MM AM/PM - ..."
+                                    return 0; // Keeping server/input order for now
+                                });
+
+                                lectures.forEach(lecture => {
+                                    dayHTML += `
+                                        <div class="schedule-item">
+                                            <span class="time">${lecture.time}</span>
+                                            <span class="subject">${lecture.subject || lecture.topic}</span>
+                                            <span class="teacher">${lecture.room || ''}</span> 
+                                            <!-- Teacher name not passed directly in this view, using Room for now or could add teacher name -->
+                                        </div>
+                                    `;
+                                });
+
+                                dayHTML += `
+                                    </div>
+                                </div>
+                                `;
+                                container.innerHTML += dayHTML;
+                            }
+                        });
+
+                        if (!hasSchedule) {
+                            container.innerHTML = '<div style="text-align: center; padding: 20px;">No schedule available for your class yet.</div>';
+                        }
+                    }
+                </script>
+
+                <!-- Syllabus Progress Tab -->
+                <div class="tab-pane" id="syllabus">
+                    <h2 class="tab-title">Syllabus Progress</h2>
+                    <!-- Dynamic Syllabus Container -->
+                    <div class="syllabus-grid" id="studentSyllabusContainer">
+                        <div style="text-align: center; padding: 20px;">Loading syllabus...</div>
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        // Add click listener for syllabus tab to fetch on demand
+                        const syllabusTabBtn = document.querySelector('button[data-tab="syllabus"]');
+                        if (syllabusTabBtn) {
+                            syllabusTabBtn.addEventListener('click', fetchStudentSyllabus);
+                        }
+                    });
+
+                    function fetchStudentSyllabus() {
+                        fetch('/get-schedule?role=Student') // Re-using endpoint or logic? No we made a new one
+                        // Actually I created /get-syllabus for this.
+                        // Wait, /get-syllabus checks role in session.
+
+                        fetch('/get-syllabus')
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    renderStudentSyllabus(data.syllabus);
+                                } else {
+                                    document.getElementById('studentSyllabusContainer').innerHTML =
+                                        `<div style="text-align: center; color: red;">${data.message}</div>`;
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error fetching syllabus:', error);
+                                document.getElementById('studentSyllabusContainer').innerHTML =
+                                    '<div style="text-align: center; color: red;">Error loading syllabus.</div>';
+                            });
+                    }
+
+                    function renderStudentSyllabus(syllabusList) {
+                        const container = document.getElementById('studentSyllabusContainer');
+                        container.innerHTML = '';
+
+                        if (!syllabusList || syllabusList.length === 0) {
+                            container.innerHTML = '<div style="text-align: center; padding: 20px;">No syllabus progress available for your class yet.</div>';
+                            return;
+                        }
+
+                        syllabusList.forEach(item => {
+                            const percent = item.total_chapters > 0
+                                ? Math.round((item.completed_chapters / item.total_chapters) * 100)
+                                : 0;
+                            const remaining = item.total_chapters - item.completed_chapters;
+
+                            // Map subject to icon class or color if possible, else default
+                            let iconClass = 'subject-details'; // Default
+                            let iconLetter = item.subject.charAt(0).toUpperCase();
+
+                            // Simple mapping based on subject name
+                            let subjectLower = item.subject.toLowerCase();
+                            let iconStyle = 'background: #3498db;';
+                            if (subjectLower.includes('math')) iconStyle = 'background: #e74c3c;';
+                            else if (subjectLower.includes('science')) iconStyle = 'background: #2ecc71;';
+                            else if (subjectLower.includes('english')) iconStyle = 'background: #f1c40f; color: #333;';
+
+                            const cardHTML = `
+                                <div class="syllabus-card">
+                                    <div class="syllabus-header">
+                                        <div class="subject-icon" style="${iconStyle} color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">${iconLetter}</div>
+                                        <div class="subject-details">
+                                            <h3>${item.subject}</h3>
+                                            <p>${item.completed_chapters}/${item.total_chapters} Chapters Completed</p>
+                                        </div>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: ${percent}%"></div>
+                                    </div>
+                                    <div class="progress-info">
+                                        <span class="progress-text">${percent}% Complete</span>
+                                        <span class="chapters-left">${remaining} chapters remaining</span>
+                                    </div>
+                                </div>
+                            `;
+                            container.innerHTML += cardHTML;
+                        });
+                    }
+                </script>
+
+                <!-- Attendance Record Tab -->
+                <div class="tab-pane" id="attendance">
+                    <h2 class="tab-title">My Attendance Record</h2>
+                    <div class="attendance-container" id="attendanceContent">
+                        <div style="text-align: center; padding: 20px;">Loading attendance data...</div>
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const attendanceTabBtn = document.querySelector('button[data-tab="attendance"]');
+                        if (attendanceTabBtn) {
+                            attendanceTabBtn.addEventListener('click', fetchStudentAttendance);
+                        }
+                    });
+
+                    function fetchStudentAttendance() {
+                        fetch('/get-student-attendance')
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    renderAttendance(data);
+                                } else {
+                                    document.getElementById('attendanceContent').innerHTML =
+                                        `<div style="text-align: center; color: red;">${data.message}</div>`;
+                                }
+                            })
+                            .catch(err => {
+                                console.error(err);
+                                document.getElementById('attendanceContent').innerHTML =
+                                    '<div style="text-align: center; color: red;">Error loading attendance.</div>';
+                            });
+                    }
+
+                    function renderAttendance(data) {
+                        const stats = data.stats;
+                        const history = data.history;
+                        const container = document.getElementById('attendanceContent');
+
+                        // Current Month Name
+                        const date = new Date();
+                        const monthName = date.toLocaleString('default', { month: 'long' });
+                        const year = date.getFullYear();
+
+                        let html = `
+                            <div class="attendance-summary">
+                                <div class="summary-stat">
+                                    <h3>${stats.percentage}%</h3>
+                                    <p>Overall Attendance</p>
+                                </div>
+                                <div class="summary-stat">
+                                    <h3>${stats.present_days}/${stats.total_days}</h3>
+                                    <p>Days Present</p>
+                                </div>
+                                <div class="summary-stat">
+                                    <h3>${stats.absent_days}</h3>
+                                    <p>Days Absent</p>
+                                </div>
+                            </div>
+                            <div class="attendance-details">
+                                <h3>Recent History</h3>
+                                <div class="attendance-calendar">
+                                    <div class="calendar-row" style="display: block;">
+                        `;
+
+                        if (history.length === 0) {
+                            html += '<p style="text-align: center; padding: 20px; color: #666;">No attendance records found.</p>';
+                        } else {
+                            // Render list instead of full calendar for simplicity and robustness
+                            html += '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px;">';
+
+                            history.forEach(record => {
+                                const recordDate = new Date(record.date).toLocaleDateString();
+                                const statusClass = record.status.toLowerCase(); // present, absent, late
+                                const statusLabel = record.status === 'Present' ? 'P' : (record.status === 'Absent' ? 'A' : 'L');
+
+                                html += `
+                                    <div class="calendar-day" style="display: flex; flex-direction: column; align-items: center; padding: 10px; border: 1px solid #eee; border-radius: 8px;">
+                                        <span class="day-number" style="font-size: 12px; margin-bottom: 5px;">${recordDate}</span>
+                                        <span class="attendance-mark ${statusClass}" style="width: 30px; height: 30px; line-height: 30px; display: block; text-align: center; border-radius: 50%; color: white; font-weight: bold; background-color: ${statusClass === 'present' ? '#2ecc71' : (statusClass === 'absent' ? '#e74c3c' : '#f39c12')}">${statusLabel}</span>
+                                    </div>
+                                `;
+                            });
+                            html += '</div>';
+                        }
+
+                        html += `
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        container.innerHTML = html;
+                    }
+                </script>
+
+                <!-- Test Progress Tab -->
+                <div class="tab-pane" id="tests">
+                    <h2 class="tab-title">Test Progress & Results</h2>
+                    <div class="test-grid">
+                        <div class="test-card">
+                            <div class="test-header">
+                                <h3>Mathematics - Unit Test 3</h3>
+                                <span class="test-date">Jan 28, 2026</span>
+                            </div>
+                            <div class="test-score">
+                                <div class="score-circle">
+                                    <span class="score">95</span>
+                                    <span class="total">/100</span>
+                                </div>
+                                <div class="grade-badge a-plus">A+</div>
+                            </div>
+                            <div class="test-details">
+                                <p><strong>Topics:</strong> Quadratic Equations, Polynomials</p>
+                                <p><strong>Class Average:</strong> 78/100</p>
+                                <p><strong>Rank:</strong> 2nd in class</p>
+                            </div>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-header">
+                                <h3>Science - Mid-Term Exam</h3>
+                                <span class="test-date">Jan 25, 2026</span>
+                            </div>
+                            <div class="test-score">
+                                <div class="score-circle">
+                                    <span class="score">88</span>
+                                    <span class="total">/100</span>
+                                </div>
+                                <div class="grade-badge a">A</div>
+                            </div>
+                            <div class="test-details">
+                                <p><strong>Topics:</strong> Physics, Chemistry, Biology</p>
+                                <p><strong>Class Average:</strong> 72/100</p>
+                                <p><strong>Rank:</strong> 5th in class</p>
+                            </div>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-header">
+                                <h3>English - Grammar Test</h3>
+                                <span class="test-date">Jan 22, 2026</span>
+                            </div>
+                            <div class="test-score">
+                                <div class="score-circle">
+                                    <span class="score">92</span>
+                                    <span class="total">/100</span>
+                                </div>
+                                <div class="grade-badge a-plus">A+</div>
+                            </div>
+                            <div class="test-details">
+                                <p><strong>Topics:</strong> Tenses, Voice, Articles</p>
+                                <p><strong>Class Average:</strong> 75/100</p>
+                                <p><strong>Rank:</strong> 3rd in class</p>
+                            </div>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-header">
+                                <h3>Social Studies - Quiz</h3>
+                                <span class="test-date">Jan 20, 2026</span>
+                            </div>
+                            <div class="test-score">
+                                <div class="score-circle">
+                                    <span class="score">85</span>
+                                    <span class="total">/100</span>
+                                </div>
+                                <div class="grade-badge a">A</div>
+                            </div>
+                            <div class="test-details">
+                                <p><strong>Topics:</strong> Indian History, Geography</p>
+                                <p><strong>Class Average:</strong> 70/100</p>
+                                <p><strong>Rank:</strong> 4th in class</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Class Teacher Tab -->
+                <div class="tab-pane" id="class-teacher">
+                    <h2 class="tab-title">Class Teacher Details</h2>
+                    {% if class_teacher %}
+                    <div class="teacher-profile">
+                        <div class="teacher-card-large">
+                            <div class="teacher-avatar">
+                                {% if class_teacher.photo_path %}
+                                <img src="{{ class_teacher.photo_path }}" alt="Teacher"
+                                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                                {% else %}
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                                </svg>
+                                {% endif %}
+                            </div>
+                            <div class="teacher-info">
+                                <h3>{{ class_teacher.full_name }}</h3>
+                                <p class="teacher-designation">Class Teacher - {{ student.class_enroll }} {{
+                                    class_teacher.section }}</p>
+                                <p class="teacher-subject">Department: {{ class_teacher.department }}</p>
+                            </div>
+                            <div class="teacher-contact">
+                                <div class="contact-item">
+                                    <span class="contact-label">📧 Email:</span>
+                                    <span class="contact-value">{{ class_teacher.email }}</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-label">📞 Phone:</span>
+                                    <span class="contact-value">{{ class_teacher.phone }}</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-label">🎓 Qual:</span>
+                                    <span class="contact-value">{{ class_teacher.highest_qualification }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div style="text-align: center; padding: 40px; color: #666;">
+                        <p>Class teacher not assigned yet.</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Subject Teachers Tab -->
+                <div class="tab-pane" id="subject-teachers">
+                    <h2 class="tab-title">Subject Teachers</h2>
+                    <div class="teachers-grid">
+                        {% if subject_teachers %}
+                        {% for teacher in subject_teachers %}
+                        <div class="teacher-card">
+                            <div class="teacher-icon"
+                                style="background: #3498db; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; margin-bottom: 15px;">
+                                {{ teacher.subject_name[0] }}
+                            </div>
+                            <h3>{{ teacher.full_name }}</h3>
+                            <p class="subject-name">{{ teacher.subject_name }}</p>
+                            <div class="teacher-details">
+                                <p>📧 {{ teacher.email }}</p>
+                                <p>📞 {{ teacher.phone }}</p>
+                                <p>🎓 {{ teacher.highest_qualification }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
+                            <p>No subject teachers assigned yet.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        © 2026 Student Dashboard | All Rights Reserved
+    </div>
+
+    <!-- JavaScript for Tabs -->
+    <script>
+        // Tab switching functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and panes
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanes.forEach(pane => pane.classList.remove('active'));
+
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                // Show corresponding tab pane
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+    <script src="{{ url_for('static', filename='flash-utils.js') }}"></script>
+</body>
+
+</html>

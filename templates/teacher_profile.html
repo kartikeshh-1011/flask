@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='teacher_profile.css') }}">
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Teacher Profile</h1>
+            <a href="/admin" class="back-btn">← Back to Dashboard</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="avatar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+                    </svg>
+                </div>
+                <div class="profile-info">
+                    <h2 class="teacher-name">{{ teacher.full_name if teacher else 'Teacher Name' }}</h2>
+                    <p class="teacher-id">Employee ID: {{ teacher.employee_id if teacher else 'N/A' }}</p>
+                    <span class="status-badge active">Active</span>
+                </div>
+            </div>
+
+            <div class="profile-body">
+                <div class="info-section">
+                    <h3>Personal Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Full Name</span>
+                            <span class="value">{{ teacher.full_name if teacher else 'N/A' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Subject</span>
+                            <span class="value">{{ teacher.department if teacher else 'N/A' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Email</span>
+                            <span class="value">{{ teacher.email if teacher else 'N/A' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Phone</span>
+                            <span class="value">{{ teacher.phone if teacher else 'N/A' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Date of Birth</span>
+                            <span class="value">{{ teacher.date_of_birth.strftime('%d %b %Y') if teacher and
+                                teacher.date_of_birth else 'N/A' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Gender</span>
+                            <span class="value">{{ teacher.gender if teacher else 'N/A' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Blood Group</span>
+                            <span class="value">{{ teacher.blood_group if teacher and teacher.blood_group else 'N/A'
+                                }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Joining Date</span>
+                            <span class="value">{{ teacher.joining_date.strftime('%d %b %Y') if teacher and
+                                teacher.joining_date else 'N/A' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Professional Details</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Employee ID</span>
+                            <span class="value">{{ teacher.employee_id if teacher else 'N/A' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Department</span>
+                            <span class="value">{{ teacher.department if teacher else 'N/A' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Designation</span>
+                            <span class="value">{{ teacher.designation if teacher else 'N/A' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Experience</span>
+                            <span class="value">{{ teacher.experience if teacher else '0' }} Years</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Qualification</span>
+                            <span class="value">{{ teacher.highest_qualification if teacher else 'N/A' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Specialization</span>
+                            <span class="value">{{ teacher.specialization if teacher and teacher.specialization else
+                                'N/A' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Teaching Schedule</h3>
+                    <div class="schedule-grid">
+                        <div class="schedule-card">
+                            <div class="day">Monday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="class-name">Class 10th - A</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">11:00 AM - 12:00 PM</span>
+                                    <span class="class-name">Class 12th - B</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">2:00 PM - 3:00 PM</span>
+                                    <span class="class-name">Class 11th - B</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="day">Tuesday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="class-name">Class 10th - B</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">12:00 PM - 1:00 PM</span>
+                                    <span class="class-name">Class 12th - A</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">2:00 PM - 3:00 PM</span>
+                                    <span class="class-name">Class 11th - A</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="day">Wednesday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="class-name">Class 10th - A</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">11:00 AM - 12:00 PM</span>
+                                    <span class="class-name">Class 10th - B</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">12:00 PM - 1:00 PM</span>
+                                    <span class="class-name">Class 12th - A</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="day">Thursday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="class-name">Class 11th - A</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="class-name">Class 12th - B</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">1:00 PM - 2:00 PM</span>
+                                    <span class="class-name">Class 10th - A</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="day">Friday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="class-name">Class 12th - A</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">11:00 AM - 12:00 PM</span>
+                                    <span class="class-name">Class 11th - B</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">2:00 PM - 3:00 PM</span>
+                                    <span class="class-name">Class 10th - B</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="day">Saturday</div>
+                            <div class="classes">
+                                <div class="class-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="class-name">Class 10th - A</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="class-name">Class 11th - A</span>
+                                </div>
+                                <div class="class-item">
+                                    <span class="time">11:30 AM - 12:30 PM</span>
+                                    <span class="class-name">Class 12th - B</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Performance Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon students">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value">{{total_studen}}</div>
+                                <div class="stat-label">{{total_student}}</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon classes">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value">{{total_staf}}</div>
+                                <div class="stat-label">{{total_staf}}</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon rating">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value">{{rating}}</div>
+                                <div class="stat-label">{{rating}}</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon attendance">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value">{{attendance}}</div>
+                                <div class="stat-label">{{attendance}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cancel Teacher Button -->
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0;">
+                <form action="/cancel-teacher" method="POST"
+                    onsubmit="return confirm('Are you sure you want to cancel this teacher? This action cannot be undone.');"
+                    style="display: inline;">
+                    <input type="hidden" name="email" value="{{ teacher.email if teacher else '' }}">
+                    <button type="submit"
+                        style="background-color: #dc3545; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(220, 53, 69, 0.3);"
+                        onmouseover="this.style.backgroundColor='#c82333'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(220, 53, 69, 0.4)';"
+                        onmouseout="this.style.backgroundColor='#dc3545'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(220, 53, 69, 0.3)';">
+                        ❌ Cancel Teacher
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 Admin Panel | All Rights Reserved
+    </div>
+</body>
+
+</html>

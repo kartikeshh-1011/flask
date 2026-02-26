@@ -10,12 +10,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 .container {
     display: flex;
+    flex-direction: row;
     width: 850px;
+    max-width: 100%;
     background-color: #fff;
     border-radius: 30px;
     box-shadow: 0 10px 25px #29909d;
@@ -30,6 +33,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 20px;
 }
 
 #image {
@@ -62,6 +66,7 @@ body {
     padding: 12px 40px 12px 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
 }
 
 .input-box i {
@@ -70,6 +75,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     color: #999;
+    pointer-events: none;
 }
 
 .forgot-link {
@@ -91,22 +97,26 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 18px;
+    min-height: 44px;
 }
 
 .role-buttons {
     margin-top: 20px;
     display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .role-buttons button {
     flex: 1;
-    margin: 0 5px;
+    min-width: 70px;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     background-color: #6b7280;
     color: white;
+    min-height: 44px;
 }
 
 .signup {
@@ -117,4 +127,77 @@ body {
 .signup a {
     color: #29909d;
     text-decoration: none;
+}
+
+/* ===== MOBILE (≤768px) ===== */
+@media (max-width: 768px) {
+    body {
+        align-items: center;
+        padding: 14px;
+    }
+
+    .container {
+        flex-direction: column;
+        width: 100%;
+        border-radius: 20px;
+    }
+
+    /* Welcome box → compact horizontal strip */
+    .welcome-box {
+        flex-direction: row;
+        gap: 14px;
+        padding: 14px 20px;
+        justify-content: center;
+        border-bottom: 2px solid #e0f5f7;
+        background: linear-gradient(90deg, #e8f7f8, #f0effe);
+        text-align: left;
+    }
+
+    #image {
+        width: 48px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .welcome-box h2 {
+        font-size: 20px;
+        align-self: center;
+    }
+
+    .form-box {
+        padding: 22px 18px 30px;
+    }
+
+    .form-box h1 {
+        font-size: 22px;
+        margin-bottom: 18px;
+    }
+
+    .input-box input {
+        font-size: 16px;
+        /* prevent iOS auto-zoom */
+    }
+
+    .role-buttons button {
+        font-size: 13px;
+        padding: 9px 4px;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 10px;
+    }
+
+    .welcome-box h2 {
+        font-size: 17px;
+    }
+
+    #image {
+        width: 38px;
+    }
+
+    .form-box {
+        padding: 16px 14px 22px;
+    }
 }

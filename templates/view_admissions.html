@@ -224,7 +224,9 @@
                     {% for admission in admissions %}
                     <tr>
                         <td>{{ admission.id }}</td>
-                        <td><strong>{{ admission.student_name }}</strong></td>
+                        <td><strong><a href="{{ url_for('stud', email=admission.email) }}"
+                                    style="color: inherit; text-decoration: none;">{{ admission.student_name
+                                    }}</a></strong></td>
                         <td>{{ admission.date_of_birth }}</td>
                         <td>
                             <span class="badge badge-{{ admission.gender.lower() }}">

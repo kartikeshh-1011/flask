@@ -51,7 +51,8 @@ body {
     transform: translateY(-50%);
     color: #999;
 }
-.input-box  a{
+
+.input-box a {
     position: absolute;
     right: 12px;
     top: 50%;

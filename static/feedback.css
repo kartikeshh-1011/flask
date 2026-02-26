@@ -1,183 +1,59 @@
-* {
-    /* box-sizing: border-box; */
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: #f5f5f5;
-    margin: 0;
-    padding: 0;
-}
-
-/* .form-container {
-    max-width: 1200px;
-    margin: auto;
-} */
-#first{
-    margin-top: 1px;
-    height: 35px;
-    width: 100%;
-    background-color: #29629d;
-    color: yellow;
-}
-#new{
-    background-color: #29909d;
-    color: white;
-    height: 35px;
-    width: 100px;
-    margin-left: 160px;
-    text-align: center;
-    margin-top: 1px;
-}
-#second{
-    height: 35px;
-    width: 100%;
-    background-color: #29909d;
-    padding-top: 1px;
-}
-#gmail{
-    padding-left: 120px;
-    color: white;
-    font-size: large;
-    margin-top: 1px;
-    
-}
-#second a{
-    text-decoration: none;
-}
-
-.top-header {
-    background: #f9f9f9;
-    border-top: 4px solid #29909d;
-    /* height: 0px; */
-
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 40px;
-    height: 60px;
-}
-
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 1px;
-    padding-top: 1px;
-}
-
-.logo img {
-    width: 55px;
-}
-
-.logo h1 {
-    font-size: 24px;
-    color: #29909d;
-}
-
-
-.right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.call {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #29909d;
-}
-
-.call i {
-    font-size: 22px;
-    border: 1px solid #29909d;
-    padding: 10px;
-    border-radius: 50%;
-}
-.number a{
-    text-decoration: none;
-    color: #29909d;
-}
-
-.login-btn {
-    background: #29909d;
-    color: #fff;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 15px;
-}
-.menu {
-    background: #efefef;
-    font-family: Arial, sans-serif;
-}
-
-.menu ul {
-    list-style: none;
-}
-
-/* MAIN MENU */
-.menu  ul {
-    display: flex;
-    align-items: center;
-}
-.menu  ul  li {
-    position: relative;
-}
-.menu a {
-    display: block;
-    padding: 14px 80px;
-    color: #000000;
-    text-decoration: none;
-    font-size: 15px;
-}
-.menu a:hover {
-    background: #29909d;
-}
-/* FIRST DROPDOWN */
-.menu ul ul {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: #aaaaaa;
-    min-width: 220px;
-    display: none;
-    z-index: 1000;
-}
-
-.menu ul li:hover > ul {
-    display: block;
-}
-
-/* DROPDOWN ITEMS */
-.menu ul ul li {
-    position: relative;
-}
-
-/* SECOND  DROPDOWN */
-.menu ul ul ul {
-    top: 0;
-    left: 100%;
-    background: #aaaaaa;
-}
-
-/* HOVER */
-.menu ul ul a:hover {
-    background: #29909d;
-}
 body {
     background: #f5f5f5;
 }
- .form-container {
-    max-width: 1200px;
-    margin: auto;
+
+/* Flash Messages */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
 }
+
+.flash-message {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease-out;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.flash-success {
+    background-color: #4caf50;
+    color: white;
+    border-left: 4px solid #2e7d32;
+}
+
+.flash-error {
+    background-color: #f44336;
+    color: white;
+    border-left: 4px solid #c62828;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.form-container {
+    max-width: 1200px;
+    margin: 80px auto 30px auto;
+    padding: 40px 80px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 .form-group {
     display: flex;
     align-items: center;
@@ -221,21 +97,37 @@ body {
 .form-actions button:hover {
     background-color: #29909d;
 }
-#empty{
+
+#empty {
     height: 50px;
     width: 100%;
 }
+
 .footer {
     background: #383838;
     color: #ddd;
     bottom: 0%;
-    background:url('https://www.encounterbooks.com/wp-content/uploads/2020/02/graduationcaphero-1280x910.jpg')center/cover no-repeat;
+    background: url('https://www.encounterbooks.com/wp-content/uploads/2020/02/graduationcaphero-1280x910.jpg')center/cover no-repeat;
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 0;
 }
 
 .footer-top {
     display: flex;
     justify-content: space-between;
     padding: 40px 80px;
+    position: relative;
+    z-index: 1;
 }
 
 .footer-box h3 {
@@ -246,7 +138,8 @@ body {
     display: inline-block;
     padding-bottom: 5px;
 }
-.footer-box a{
+
+.footer-box a {
     text-decoration: none;
 }
 
@@ -264,29 +157,40 @@ body {
 .footer-box ul li:hover {
     color: #29909d;
 }
-#numberclick a{
+
+#numberclick a {
     color: white;
     text-decoration: none;
 }
 
 .social-icons i {
-    border: 1px solid #aaa;
-    padding: 10px;
+    border: 2px solid #aaa;
+    padding: 12px;
     margin: 5px;
-    width: 18px;
-    height: 18px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     cursor: pointer;
     color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 18px;
+    transition: all 0.3s ease;
 }
 
 .social-icons i:hover {
     background: #29909d;
-    color: #000; 
+    color: #fff;
+    border-color: #29909d;
+    transform: translateY(-3px);
 }
-.feed:hover{
+
+.feed:hover {
     color: #29909d;
 }
+
 .complain {
     display: flex;
     align-items: center;
@@ -298,25 +202,34 @@ body {
     font-size: 22px;
     color: white;
 }
-.complain a{
+
+.complain a {
     color: white;
 }
 
-.complain a:hover{
+.complain a:hover {
     color: #29909d;
 }
+
 hr {
     border: 0.5px solid #555;
     margin: 0 80px;
+    position: relative;
+    z-index: 1;
 }
+
 .footer-bottom {
     display: flex;
     justify-content: space-between;
     padding: 30px 80px;
+    position: relative;
+    z-index: 1;
 }
-.footer-bottom a:hover{
+
+.footer-bottom a:hover {
     color: #29909d;
 }
+
 .info {
     display: flex;
     align-items: center;
@@ -326,12 +239,13 @@ hr {
     font-size: 25px;
     margin-right: 15px;
 }
-.info a{
+
+.info a {
     text-decoration: none;
     color: white;
 }
 
-#numberclick a:hover{
+#numberclick a:hover {
     color: #29909d;
 }
 
@@ -341,4 +255,6 @@ hr {
     text-align: center;
     padding: 15px;
     font-size: 14px;
+    position: relative;
+    z-index: 1;
 }

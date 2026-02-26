@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="{{url_for('static',filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{url_for('static',filename='signup.css')}}">
-
     <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
 </head>
 
@@ -20,7 +19,8 @@
     <div class="flash-messages">
         {% for category, message in messages %}
         <div class="flash-message flash-{{ category }}">
-            {{ message }}
+            <span>{{ message }}</span>
+            <button class="close-flash">&times;</button>
         </div>
         {% endfor %}
     </div>
@@ -28,8 +28,13 @@
     {% endwith %}
 
     <div class="container">
+        <div class="welcome-box">
+            <img src="{{url_for('static',filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg')}}" alt="logo">
+            <h2>Hello Welcome!!</h2>
+        </div>
+
         <div class="form-box signup">
-            <form action="{{ url_for('signup') }}" method="POST">
+            <form id="signupForm" action="{{ url_for('signup') }}" method="POST">
                 <h1>Sign Up</h1>
 
                 <div class="input-box">
@@ -38,6 +43,7 @@
                         <option value="Teacher">Teacher</option>
                         <option value="Admin">Admin</option>
                         <option value="Student">Student</option>
+                        <option value="Parent">Parent</option>
                     </select>
                 </div>
 
@@ -46,9 +52,46 @@
                     <i class="fa-solid fa-user"></i>
                 </div>
 
-                <div class="input-box">
-                    <input type="email" name="email" placeholder="Email Required" required>
+                <!-- Email field with verify button -->
+                <div class="input-box email-verify-box">
+                    <input type="email" name="email" id="emailInput" placeholder="Email Required" required
+                        autocomplete="email">
                     <i class="fa-solid fa-envelope"></i>
+                    <button type="button" id="sendOtpBtn" class="verify-btn" title="Send verification code">
+                        <i class="fa-solid fa-paper-plane"></i> Verify
+                    </button>
+                </div>
+
+                <!-- OTP block (hidden until email is sent) -->
+                <div class="otp-block" id="otpBlock">
+                    <div class="otp-header">
+                        <i class="fa-solid fa-shield-halved otp-icon"></i>
+                        <div>
+                            <p class="otp-label">Enter the 4-digit code sent to</p>
+                            <p class="otp-email-target" id="otpEmailTarget">—</p>
+                        </div>
+                    </div>
+                    <div class="otp-inputs" id="otpInputs">
+                        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                    </div>
+                    <div class="otp-actions">
+                        <button type="button" id="verifyOtpBtn" class="btn otp-submit-btn">
+                            <i class="fa-solid fa-check"></i> Confirm Code
+                        </button>
+                        <button type="button" id="resendOtpBtn" class="resend-btn">
+                            <i class="fa-solid fa-rotate-right"></i> Resend Code
+                        </button>
+                    </div>
+                    <p class="otp-status" id="otpStatus"></p>
+                </div>
+
+                <!-- Email verified badge (hidden until verified) -->
+                <div class="email-verified-badge" id="verifiedBadge">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Email verified!</span>
                 </div>
 
                 <div class="input-box">
@@ -56,7 +99,7 @@
                     <i class="fa-solid fa-lock"></i>
                 </div>
 
-                <button type="submit" class="btn">Sign Up</button>
+                <button type="submit" class="btn" id="signupSubmitBtn" disabled>Sign Up</button>
 
                 <p>or Sign Up with Google</p>
                 <div class="social-icons">
@@ -64,13 +107,155 @@
                 </div>
             </form>
         </div>
-
-        <div class="welcome-box">
-            <img src="{{url_for('static',filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg')}}" alt="logo">
-            <h2>Hello Welcome!!</h2>
-        </div>
     </div>
+
+    <script src="{{ url_for('static', filename='flash-utils.js') }}"></script>
     <script src="{{url_for('static',filename='signup.js')}}"></script>
+    <script>
+        // ===== Email OTP Verification Logic =====
+        (function () {
+            const emailInput = document.getElementById('emailInput');
+            const sendOtpBtn = document.getElementById('sendOtpBtn');
+            const otpBlock = document.getElementById('otpBlock');
+            const otpDigits = document.querySelectorAll('.otp-digit');
+            const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+            const resendOtpBtn = document.getElementById('resendOtpBtn');
+            const otpStatus = document.getElementById('otpStatus');
+            const otpEmailTgt = document.getElementById('otpEmailTarget');
+            const verifiedBadge = document.getElementById('verifiedBadge');
+            const submitBtn = document.getElementById('signupSubmitBtn');
+            let emailVerified = false;
+            let currentEmail = '';
+
+            // Auto-jump between OTP digit boxes
+            otpDigits.forEach((box, i) => {
+                box.addEventListener('input', () => {
+                    box.value = box.value.replace(/\D/g, '');
+                    if (box.value && i < otpDigits.length - 1) otpDigits[i + 1].focus();
+                });
+                box.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !box.value && i > 0) otpDigits[i - 1].focus();
+                });
+                box.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const pasteData = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+                    [...pasteData.slice(0, 4)].forEach((ch, idx) => {
+                        if (otpDigits[idx]) otpDigits[idx].value = ch;
+                    });
+                    if (otpDigits[Math.min(pasteData.length, 3)]) otpDigits[Math.min(pasteData.length, 3)].focus();
+                });
+            });
+
+            function getOtpValue() {
+                return [...otpDigits].map(b => b.value).join('');
+            }
+
+            function setStatus(msg, type) {
+                otpStatus.textContent = msg;
+                otpStatus.className = 'otp-status otp-status--' + type;
+            }
+
+            function setSendBtnState(loading) {
+                sendOtpBtn.disabled = loading;
+                sendOtpBtn.innerHTML = loading
+                    ? '<i class="fa-solid fa-spinner fa-spin"></i> Sending…'
+                    : '<i class="fa-solid fa-paper-plane"></i> Verify';
+            }
+
+            // Resend after email changes - reset verification
+            emailInput.addEventListener('input', () => {
+                if (emailVerified) {
+                    emailVerified = false;
+                    verifiedBadge.classList.remove('show');
+                    otpBlock.classList.remove('show');
+                    submitBtn.disabled = true;
+                    sendOtpBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Verify';
+                }
+            });
+
+            async function sendOtp() {
+                const email = emailInput.value.trim();
+                if (!email || !emailInput.checkValidity()) {
+                    setStatus('Please enter a valid email address.', 'error');
+                    otpBlock.classList.add('show');
+                    return;
+                }
+                currentEmail = email;
+                setSendBtnState(true);
+                otpDigits.forEach(b => b.value = '');
+                otpStatus.textContent = '';
+                try {
+                    const res = await fetch('/send-otp', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        otpEmailTgt.textContent = email;
+                        otpBlock.classList.add('show');
+                        setStatus('Code sent! Check your inbox (and spam folder).', 'success');
+                        otpDigits[0].focus();
+                    } else {
+                        otpBlock.classList.add('show');
+                        setStatus(data.message || 'Failed to send OTP.', 'error');
+                    }
+                } catch (err) {
+                    otpBlock.classList.add('show');
+                    setStatus('Network error. Please try again.', 'error');
+                } finally {
+                    setSendBtnState(false);
+                }
+            }
+
+            sendOtpBtn.addEventListener('click', sendOtp);
+            resendOtpBtn.addEventListener('click', sendOtp);
+
+            verifyOtpBtn.addEventListener('click', async () => {
+                const otp = getOtpValue();
+                if (otp.length !== 4) {
+                    setStatus('Please enter all 4 digits.', 'error');
+                    return;
+                }
+                verifyOtpBtn.disabled = true;
+                verifyOtpBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying…';
+                try {
+                    const res = await fetch('/verify-otp', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: currentEmail, otp })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        emailVerified = true;
+                        otpBlock.classList.remove('show');
+                        verifiedBadge.classList.add('show');
+                        submitBtn.disabled = false;
+                        setStatus('', '');
+                    } else {
+                        setStatus(data.message || 'Incorrect code.', 'error');
+                        otpDigits.forEach(b => b.value = '');
+                        otpDigits[0].focus();
+                    }
+                } catch (err) {
+                    setStatus('Network error. Please try again.', 'error');
+                } finally {
+                    verifyOtpBtn.disabled = false;
+                    verifyOtpBtn.innerHTML = '<i class="fa-solid fa-check"></i> Confirm Code';
+                }
+            });
+
+            // Guard: if form is submitted without verification
+            document.getElementById('signupForm').addEventListener('submit', (e) => {
+                if (!emailVerified) {
+                    e.preventDefault();
+                    setStatus('Please verify your email before signing up.', 'error');
+                    otpBlock.classList.add('show');
+                }
+            });
+        })();
+    </script>
+
 </body>
 
 </html>

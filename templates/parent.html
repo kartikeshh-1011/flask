@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='parent.css') }}">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>Parent Dashboard</h1>
+            <a href="{{ url_for('home') }}" class="back-btn">← Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-card">
+                <div class="avatar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="profile-info">
+                    <h2 class="parent-name">Mr. Rajesh Singh</h2>
+                    <p class="parent-details">Parent of Aman Singh</p>
+                    <p class="parent-id">Parent ID: P101</p>
+                    <p class="student-class">Student Class: 10th A</p>
+                    <span class="status-badge">Active</span>
+                </div>
+            </div>
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-info">
+                        <h3>92%</h3>
+                        <p>Attendance</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-info">
+                        <h3>A+</h3>
+                        <p>Overall Grade</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-info">
+                        <h3>Paid</h3>
+                        <p>Fee Status</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-tab="student-details">👨‍🎓 Student Details</button>
+                <button class="tab-btn" data-tab="progress">📊 Progress Report</button>
+                <button class="tab-btn" data-tab="fees">💰 Fees Details</button>
+                <button class="tab-btn" data-tab="schedule">📅 Class Schedule</button>
+                <button class="tab-btn" data-tab="class-teacher">👨‍🏫 Class Teacher</button>
+                <button class="tab-btn" data-tab="subject-teachers">👥 Subject Teachers</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tabs-content">
+                <!-- Student Details Tab -->
+                <div class="tab-pane active" id="student-details">
+                    <h2 class="tab-title">Student Details</h2>
+                    <div class="student-profile">
+                        <div class="detail-card">
+                            <div class="student-header">
+                                <div class="student-avatar">AS</div>
+                                <div class="student-basic-info">
+                                    <h3>Aman Singh</h3>
+                                    <p class="student-class-info">Class 10th - Section A</p>
+                                    <p class="student-roll">Roll Number: 01</p>
+                                </div>
+                            </div>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <span class="detail-label">📧 Email:</span>
+                                    <span class="detail-value">aman.singh@school.edu</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">📞 Phone:</span>
+                                    <span class="detail-value">+91 98765 43210</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">🎂 Date of Birth:</span>
+                                    <span class="detail-value">15th March 2010</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">🩸 Blood Group:</span>
+                                    <span class="detail-value">O+</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">📍 Address:</span>
+                                    <span class="detail-value">123, Park Street, New Delhi - 110001</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">📚 Admission Date:</span>
+                                    <span class="detail-value">1st April 2020</span>
+                                </div>
+                            </div>
+                            <div class="academic-summary">
+                                <h4>Academic Summary</h4>
+                                <div class="summary-grid">
+                                    <div class="summary-item">
+                                        <h5>92%</h5>
+                                        <p>Attendance</p>
+                                    </div>
+                                    <div class="summary-item">
+                                        <h5>A+</h5>
+                                        <p>Overall Grade</p>
+                                    </div>
+                                    <div class="summary-item">
+                                        <h5>2nd</h5>
+                                        <p>Class Rank</p>
+                                    </div>
+                                    <div class="summary-item">
+                                        <h5>95/100</h5>
+                                        <p>Last Test</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Report Tab -->
+                <div class="tab-pane" id="progress">
+                    <h2 class="tab-title">Progress Report</h2>
+                    <div class="progress-container">
+                        <div class="subject-progress">
+                            <div class="subject-card">
+                                <div class="subject-header">
+                                    <div class="subject-icon math">M</div>
+                                    <div class="subject-info">
+                                        <h3>Mathematics</h3>
+                                        <p>Teacher: Mr. Rajesh Sharma</p>
+                                    </div>
+                                </div>
+                                <div class="marks-section">
+                                    <div class="mark-item">
+                                        <span>Unit Test 1:</span>
+                                        <span class="mark">92/100</span>
+                                    </div>
+                                    <div class="mark-item">
+                                        <span>Unit Test 2:</span>
+                                        <span class="mark">88/100</span>
+                                    </div>
+                                    <div class="mark-item">
+                                        <span>Unit Test 3:</span>
+                                        <span class="mark">95/100</span>
+                                    </div>
+                                    <div class="mark-item total">
+                                        <span>Average:</span>
+                                        <span class="mark">91.67%</span>
+                                    </div>
+                                </div>
+                                <div class="grade-badge grade-a">A+</div>
+                            </div>
+                            <div class="subject-card">
+                                <div class="subject-header">
+                                    <div class="subject-icon science">S</div>
+                                    <div class="subject-info">
+                                        <h3>Science</h3>
+                                        <p>Teacher: Dr. Amit Patel</p>
+                                    </div>
+                                </div>
+                                <div class="marks-section">
+                                    <div class="mark-item">
+                                        <span>Unit Test 1:</span>
+                                        <span class="mark">85/100</span>
+                                    </div>
+                                    <div class="mark-item">
+                                        <span>Unit Test 2:</span>
+                                        <span class="mark">90/100</span>
+                                    </div>
+                                    <div class="mark-item">
+                                        <span>Unit Test 3:</span>
+                                        <span class="mark">88/100</span>
+                                    </div>
+                                    <div class="mark-item total">
+                                        <span>Average:</span>
+                                        <span class="mark">87.67%</span>
+                                    </div>
+                                </div>
+                                <div class="grade-badge grade-a">A</div>
+                            </div>
+                            <div class="subject-card">
+                                <div class="subject-header">
+                                    <div class="subject-icon english">E</div>
+                                    <div class="subject-info">
+                                        <h3>English</h3>
+                                        <p>Teacher: Mrs. Anjali Gupta</p>
+                                    </div>
+                                </div>
+                                <div class="marks-section">
+                                    <div class="mark-item">
+                                        <span>Unit Test 1:</span>
+                                        <span class="mark">90/100</span>
+                                    </div>
+                                    <div class="mark-item">
+                                        <span>Unit Test 2:</span>
+                                        <span class="mark">92/100</span>
+                                    </div>
+                                    <div class="mark-item">
+                                        <span>Unit Test 3:</span>
+                                        <span class="mark">94/100</span>
+                                    </div>
+                                    <div class="mark-item total">
+                                        <span>Average:</span>
+                                        <span class="mark">92%</span>
+                                    </div>
+                                </div>
+                                <div class="grade-badge grade-a">A+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fees Details Tab -->
+                <div class="tab-pane" id="fees">
+                    <h2 class="tab-title">Fees Details</h2>
+                    <div class="fees-container">
+                        <div class="fees-summary">
+                            <div class="fee-stat">
+                                <h3>₹75,000</h3>
+                                <p>Total Annual Fee</p>
+                            </div>
+                            <div class="fee-stat">
+                                <h3>₹75,000</h3>
+                                <p>Amount Paid</p>
+                            </div>
+                            <div class="fee-stat">
+                                <h3>₹0</h3>
+                                <p>Balance Due</p>
+                            </div>
+                        </div>
+                        <div class="payment-history">
+                            <h3>Payment History</h3>
+                            <table class="fees-table">
+                                <thead>
+                                    <tr>
+                                        <th>Receipt No.</th>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Payment Mode</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>RCP001</td>
+                                        <td>01 Apr 2025</td>
+                                        <td>Term 1 Fees</td>
+                                        <td>₹25,000</td>
+                                        <td>Online</td>
+                                        <td><span class="status-paid">Paid</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>RCP002</td>
+                                        <td>01 Aug 2025</td>
+                                        <td>Term 2 Fees</td>
+                                        <td>₹25,000</td>
+                                        <td>Cheque</td>
+                                        <td><span class="status-paid">Paid</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>RCP003</td>
+                                        <td>01 Dec 2025</td>
+                                        <td>Term 3 Fees</td>
+                                        <td>₹25,000</td>
+                                        <td>Online</td>
+                                        <td><span class="status-paid">Paid</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fee-breakdown">
+                            <h3>Fee Breakdown (Annual)</h3>
+                            <div class="breakdown-items">
+                                <div class="breakdown-item">
+                                    <span>Tuition Fee</span>
+                                    <span>₹50,000</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span>Library Fee</span>
+                                    <span>₹5,000</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span>Sports Fee</span>
+                                    <span>₹5,000</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span>Lab Fee</span>
+                                    <span>₹8,000</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span>Computer Fee</span>
+                                    <span>₹5,000</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span>Miscellaneous</span>
+                                    <span>₹2,000</span>
+                                </div>
+                                <div class="breakdown-item total">
+                                    <span><strong>Total</strong></span>
+                                    <span><strong>₹75,000</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Class Schedule Tab -->
+                <div class="tab-pane" id="schedule">
+                    <h2 class="tab-title">Class Schedule - 10th A</h2>
+                    <div class="schedule-container">
+                        <div class="day-schedule">
+                            <h3 class="day-name">Monday</h3>
+                            <div class="schedule-items">
+                                <div class="schedule-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="subject">Mathematics</span>
+                                    <span class="teacher">Mr. Sharma</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="subject">English</span>
+                                    <span class="teacher">Mrs. Gupta</span>
+                                </div>
+                                <div class="schedule-item break">
+                                    <span class="time">11:00 AM - 11:30 AM</span>
+                                    <span class="subject">Break</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="time">11:30 AM - 12:30 PM</span>
+                                    <span class="subject">Science</span>
+                                    <span class="teacher">Dr. Patel</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="time">1:30 PM - 2:30 PM</span>
+                                    <span class="subject">Social Studies</span>
+                                    <span class="teacher">Mr. Kumar</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="day-schedule">
+                            <h3 class="day-name">Tuesday</h3>
+                            <div class="schedule-items">
+                                <div class="schedule-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="subject">Hindi</span>
+                                    <span class="teacher">Mrs. Verma</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="subject">Mathematics</span>
+                                    <span class="teacher">Mr. Sharma</span>
+                                </div>
+                                <div class="schedule-item break">
+                                    <span class="time">11:00 AM - 11:30 AM</span>
+                                    <span class="subject">Break</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="time">11:30 AM - 12:30 PM</span>
+                                    <span class="subject">Computer Science</span>
+                                    <span class="teacher">Mr. Singh</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="time">1:30 PM - 2:30 PM</span>
+                                    <span class="subject">Physical Education</span>
+                                    <span class="teacher">Coach Reddy</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="day-schedule">
+                            <h3 class="day-name">Wednesday</h3>
+                            <div class="schedule-items">
+                                <div class="schedule-item">
+                                    <span class="time">9:00 AM - 10:00 AM</span>
+                                    <span class="subject">Science</span>
+                                    <span class="teacher">Dr. Patel</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="time">10:00 AM - 11:00 AM</span>
+                                    <span class="subject">English</span>
+                                    <span class="teacher">Mrs. Gupta</span>
+                                </div>
+                                <div class="schedule-item break">
+                                    <span class="time">11:00 AM - 11:30 AM</span>
+                                    <span class="subject">Break</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="time">11:30 AM - 12:30 PM</span>
+                                    <span class="subject">Mathematics</span>
+                                    <span class="teacher">Mr. Sharma</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="time">1:30 PM - 2:30 PM</span>
+                                    <span class="subject">Art & Craft</span>
+                                    <span class="teacher">Ms. Mehta</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Class Teacher Tab -->
+                <div class="tab-pane" id="class-teacher">
+                    <h2 class="tab-title">Class Teacher Details</h2>
+                    <div class="teacher-profile">
+                        <div class="teacher-card-large">
+                            <div class="teacher-avatar">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                                </svg>
+                            </div>
+                            <div class="teacher-info">
+                                <h3>Mrs. Priya Sharma</h3>
+                                <p class="teacher-designation">Class Teacher - 10th A</p>
+                                <p class="teacher-subject">Subject: Mathematics</p>
+                            </div>
+                            <div class="teacher-contact">
+                                <div class="contact-item">
+                                    <span class="contact-label">📧 Email:</span>
+                                    <span class="contact-value">priya.sharma@school.edu</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-label">📞 Phone:</span>
+                                    <span class="contact-value">+91 98765 43210</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-label">🕒 Office Hours:</span>
+                                    <span class="contact-value">Mon-Fri, 2:30 PM - 4:00 PM</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-label">📍 Room:</span>
+                                    <span class="contact-value">Staff Room - 2nd Floor</span>
+                                </div>
+                            </div>
+                            <div class="teacher-stats">
+                                <div class="stat-item">
+                                    <h4>15+</h4>
+                                    <p>Years Experience</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h4>45</h4>
+                                    <p>Students</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h4>4.8/5</h4>
+                                    <p>Rating</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subject Teachers Tab -->
+                <div class="tab-pane" id="subject-teachers">
+                    <h2 class="tab-title">Subject Teachers</h2>
+                    <div class="teachers-grid">
+                        <div class="teacher-card">
+                            <div class="teacher-icon math">M</div>
+                            <h3>Mr. Rajesh Sharma</h3>
+                            <p class="subject-name">Mathematics</p>
+                            <div class="teacher-details">
+                                <p>📧 rajesh.sharma@school.edu</p>
+                                <p>📞 +91 98765 11111</p>
+                                <p>🎓 M.Sc. Mathematics</p>
+                            </div>
+                        </div>
+                        <div class="teacher-card">
+                            <div class="teacher-icon science">S</div>
+                            <h3>Dr. Amit Patel</h3>
+                            <p class="subject-name">Science (Physics, Chemistry)</p>
+                            <div class="teacher-details">
+                                <p>📧 amit.patel@school.edu</p>
+                                <p>📞 +91 98765 22222</p>
+                                <p>🎓 Ph.D. Physics</p>
+                            </div>
+                        </div>
+                        <div class="teacher-card">
+                            <div class="teacher-icon english">E</div>
+                            <h3>Mrs. Anjali Gupta</h3>
+                            <p class="subject-name">English</p>
+                            <div class="teacher-details">
+                                <p>📧 anjali.gupta@school.edu</p>
+                                <p>📞 +91 98765 33333</p>
+                                <p>🎓 M.A. English Literature</p>
+                            </div>
+                        </div>
+                        <div class="teacher-card">
+                            <div class="teacher-icon hindi">H</div>
+                            <h3>Mrs. Sunita Verma</h3>
+                            <p class="subject-name">Hindi</p>
+                            <div class="teacher-details">
+                                <p>📧 sunita.verma@school.edu</p>
+                                <p>📞 +91 98765 44444</p>
+                                <p>🎓 M.A. Hindi</p>
+                            </div>
+                        </div>
+                        <div class="teacher-card">
+                            <div class="teacher-icon social">SS</div>
+                            <h3>Mr. Vikram Kumar</h3>
+                            <p class="subject-name">Social Studies</p>
+                            <div class="teacher-details">
+                                <p>📧 vikram.kumar@school.edu</p>
+                                <p>📞 +91 98765 55555</p>
+                                <p>🎓 M.A. History & Geography</p>
+                            </div>
+                        </div>
+                        <div class="teacher-card">
+                            <div class="teacher-icon computer">CS</div>
+                            <h3>Mr. Arjun Singh</h3>
+                            <p class="subject-name">Computer Science</p>
+                            <div class="teacher-details">
+                                <p>📧 arjun.singh@school.edu</p>
+                                <p>📞 +91 98765 66666</p>
+                                <p>🎓 B.Tech Computer Science</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        © 2026 Parent Dashboard | All Rights Reserved
+    </div>
+
+    <!-- JavaScript for Tabs -->
+    <script>
+        // Tab switching functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and panes
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanes.forEach(pane => pane.classList.remove('active'));
+
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                // Show corresponding tab pane
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

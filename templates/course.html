@@ -1,57 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Our Courses | Coaching Center</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='course.css') }}">
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='footer.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
-</head>
-<body>
-    <div id="first">
-    <marquee behavior="" direction="left"> <div>Latest News:   22 January 2026  Check Your Result 
-       </div></marquee>
-       <!-- <div>
-        <h4 id="new">Latest News</h4>
-       </div>  -->
-    </div>
-    <div id="second">
-     <a href="mailto:apexlearninghub2020@gmail.com"><p id="gmail">&#9993 apexlearninghub2020@gmail.com</p></a> 
-    </div>
-    <header class="top-header">
-    <div class="container">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg') }}" alt="class Logo">
-            <h1>APEX LEARNING HUB</h1>
-        </div>
-        <div class="right">
-            <div class="call">
-                <i class="fa-solid fa-phone"></i>
-                <span class="number">Call Us<br><a href="tel:+919421554793"><b>+919421554793</b></a></span>
-            </div>
-            <a href="login.html"><button class="login-btn">Login</button></a>
-        </div>
+{% block title %}Our Courses | Coaching Center{% endblock %}
 
-    </div>
-    
-    
-</header>
-<br>
-<br>
-<br>
-<br>
-<br>
+{% block extra_css %}
+<link rel="stylesheet" href="{{url_for('static', filename='footer.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='responsive.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='course.css')}}">
+{% endblock %}
 
-    <header class="header">
-        <h1>Our Courses</h1>
-        <p>Learn from the best instructors</p>
-    </header>
-
-    <section class="courses">
+{% block content %}
+<section class="courses">
         <div class="course-card">
              <a href="V.html"><h2>Tutorials for V</h2></a>
             <!-- <p>Perfect for beginners. Build strong basics.</p>
@@ -149,65 +107,4 @@
     </section>
     <div id="empty">
 </div>
-<footer class="footer">
-    <div class="footer-top">
-        <div class="footer-box">
-            <h3>Links</h3>
-            <ul>
-                <a href="localhome.html"><li>Home</li></a>
-               <a href="course.html"><li>Course</li></a> 
-                <a href="event.html"><li>Events</li></a>
-                <a href="aboutus.html"><li>About Us</li></a>
-                <a href="contact.html"><li>Contact Us</li></a>
-            </ul>
-        </div>
-        <div class="footer-box">
-            <h3>Follow Us</h3>
-            <div class="social-icons">
-                <a href=" https://wa.me/919421554793"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.facebook.com/share/183weznzH8/"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://g.co/kgs/Pj85AHs"><i class="fab fa-google-plus-g"></i></a>
-                <a href="https://www.linkedin.com/company/apex-learning-hub/"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/apexlearninghub?utm_source=qr&igsh=eXloamM1MTJ1MTU="> <i class="fab fa-instagram"></i>
-                </a>
-            </div>
-        </div>
-        <div class="footer-box">
-           <a href="feedback.html"><h3>Feedback</h3></a>
-            <div class="complain">     
-             <a href="complain.html"><i class="fas fa-pen"></i></a> 
-             <a href="complain.html"><span>Complain</span></a>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="footer-bottom">
-        <div class="info">
-            <i class="fas fa-phone"></i>
-            <div id="numberclick">
-                <a href="tel:+919421554793"><strong>Contact</strong><br>
-                +919421554793</a>
-                <br>
-                <a  href="tel:+919421554793">+918928772435</a>
-            </div>
-        </div>
-        <div class="info">
-            <i class="fas fa-envelope"></i>
-            <div>
-                 <a href="mailto:apexlearninghub2020@gmail.com"><strong>Email Us</strong><br>
-                apexlearninghub2020@gmail.com</a>
-            </div>
-        </div>
-        <div class="info">
-            <i class="fas fa-location-dot"></i>
-            <div>
-                <strong>Address</strong><br>
-                <a href=https://maps.app.goo.gl/UhYGeb6NUFumRkJm9><p>2nd Floor, 'Guru Mauli', <br>Near HP Petrol Pump, Meri - Rasbihari Link Road, Nashik -<br>422003</p></a>
-            </div>
-        </div>
-    </div>
-    <div class="last">
-        <a href="mailto:apexlearning@gmail.com"><p>&#9993 apexlearninghub2020@gmail.com</p></a>
-    </div>
-</body>
-</html>
+{% endblock %}

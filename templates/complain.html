@@ -1,211 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>complain</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='complain.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='footer.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+{% block title %}Complain{% endblock %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
-</head>
+{% block extra_css %}
+<link rel="stylesheet" href="{{url_for('static', filename='complain.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='responsive.css')}}">
+{% endblock %}
 
-<body>
-    <!-- Flash Messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="flash-messages">
-        {% for category, message in messages %}
-        <div class="flash-message flash-{{ category }}">
-            {{ message }}
+{% block content %}
+<div id="empty"></div>
+<div class="form-container">
+    <form method="POST" action="{{ url_for('complain') }}">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Enter Your Name" required>
         </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% endwith %}
-    <div id="first">
-        <marquee behavior="" direction="left">
-            <div>Latest News: 22 January 2026 Check Your Result
-            </div>
-        </marquee>
-        <!-- <div>
-         <h4 id="new">Latest News</h4>
-     </div>  -->
-    </div>
-    <div id="second">
-        <a href="mailto:apexlearninghub2020@gmail.com">
-            <p id="gmail">&#9993 apexlearninghub2020@gmail.com</p>
-        </a>
-    </div>
-    <header class="top-header">
-        <div class="container">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg') }}"
-                    alt="class Logo">
-                <h1>APEX LEARNING HUB</h1>
-            </div>
-            <div class="right">
-                <div class="call">
-                    <i class="fa-solid fa-phone"></i>
-                    <span class="number">Call Us<br><a href="tel:+919421554793"><b>+919421554793</b></a></span>
-                </div>
-                <a href="{{ url_for('login') }}"><button class="login-btn">Login</button></a>
-            </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter Your Email" required>
         </div>
-        <nav class="menu">
-            <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li class="dropdown">
-                    <a href="#">Course</a>
-                    <ul class="dropdown1">
-                        <li class="dropdown2">
-                            <a href="{{ url_for('static_page', page_name='academic') }}">Academics</a>
-                            <ul>
-                                <li><a href="NHTCET.html">MHTCET</a></li>
-                                <li><a href="NEET.html">NEET</a></li>
-                                <li><a href="JEE.html">JEE</a></li>
-                                <li><a href="V.html">tutorial of V</a></li>
-                                <li><a href="VI.html">Tutorial of VI</a></li>
-                                <li><a href="VII.html">Tutorial of VII</a></li>
-                                <li><a href="VIII.html">Tutorial of VIII</a></li>
-                                <li><a href="IX.html">Tutorial of IX</a></li>
-                                <li><a href="X.html">Tutorial of X</a></li>
-                                <li><a href="XI.html">Tutorial of XI</a></li>
-                                <li><a href="XII.html">Tutorial of XII</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown3">
-                            <a href="{{ url_for('static_page', page_name='nonacademic') }}">Nonacademics</a>
-                            <ul>
-                                <li><a href="KVPY.html">KVPY</a></li>
-                                <li><a href="NAVODAYA.html">NAVODAYA</a></li>
-                                <li><a href="SAINIKI.html">SAINIKi</a></li>
-                                <li><a href="OLYMPIADS.html">OLYMPIADS</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href="{{ url_for('static_page', page_name='aboutus') }}">About Us</a></li>
-                <li><a href="{{ url_for('static_page', page_name='gallery') }}">Gallery</a></li>
-                <li><a href="{{ url_for('static_page', page_name='event') }}">Events</a></li>
-                <li><a href="{{ url_for('static_page', page_name='result') }}">Result</a></li>
-                <li><a href="{{ url_for('contact') }}">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <br>
-    <br>
 
-    <div></div>
-    <div class="form-container">
-        <form method="POST" action="{{ url_for('complain') }}">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="name" placeholder="Enter Your Name" required>
-            </div>
+        <div class="form-group">
+            <label>Contact No.</label>
+            <input type="text" name="contact" placeholder="Enter Contact No." required>
+        </div>
 
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="Enter Your Email" required>
-            </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" placeholder="" required></textarea>
+        </div>
 
-            <div class="form-group">
-                <label>Contact No.</label>
-                <input type="text" name="contact" placeholder="Enter Contact No." required>
-            </div>
-
-            <div class="form-group">
-                <label>Description</label>
-                <textarea name="description" placeholder="" required></textarea>
-            </div>
-
-            <div class="form-actions">
-                <button type="submit">Submit</button>
-            </div>
-        </form>
-    </div>
-</body>
+        <div class="form-actions">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
 <div id="empty">
 </div>
-<footer class="footer">
-    <div class="footer-top">
-        <div class="footer-box">
-            <h3>Links</h3>
-            <ul>
-                <a href="{{ url_for('home') }}">
-                    <li>Home</li>
-                </a>
-                <a href="{{ url_for('static_page', page_name='event') }}">
-                    <li>Events</li>
-                </a>
-                <a href="{{ url_for('static_page', page_name='aboutus') }}">
-                    <li>About Us</li>
-                </a>
-                <a href="{{ url_for('contact') }}">
-                    <li>Contact Us</li>
-                </a>
-            </ul>
-        </div>
-        <div class="footer-box">
-            <h3>Follow Us</h3>
-            <div class="social-icons">
-                <a href=" https://wa.me/919421554793"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.facebook.com/share/183weznzH8/"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://g.co/kgs/Pj85AHs"><i class="fab fa-google-plus-g"></i></a>
-                <a href="https://www.linkedin.com/company/apex-learning-hub/"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/apexlearninghub?utm_source=qr&igsh=eXloamM1MTJ1MTU="> <i
-                        class="fab fa-instagram"></i>
-                </a>
-            </div>
-        </div>
-        <div class="footer-box">
-            <a href="feedback.html">
-                <h3 class="feed">Feedback</h3>
-            </a>
-            <div class="complain">
-                <a href="complain.html"><i class="fas fa-pen"></i></a>
-                <a href="complain.html"><span>Complain</span></a>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="footer-bottom">
-        <div class="info">
-            <i class="fas fa-phone"></i>
-            <div id="numberclick">
-                <strong>Contact</strong>
-                <a href="tel:+919421554793"><br>
-                    +919421554793</a>
-                <br>
-                <a href="tel:+919421554793">+918928772435</a>
-            </div>
-        </div>
-        <div class="info">
-            <i class="fas fa-envelope"></i>
-            <div>
-                <strong>Email Us</strong>
-                <a href="mailto:apexlearninghub2020@gmail.com"><br>
-                    apexlearninghub2020@gmail.com</a>
-            </div>
-        </div>
-        <div class="info">
-            <i class="fas fa-location-dot"></i>
-            <div>
-                <strong>Address</strong><br>
-                <a href=https://maps.app.goo.gl/UhYGeb6NUFumRkJm9>
-                    <p>2nd Floor, 'Guru Mauli', <br>Near HP Petrol Pump, Meri - Rasbihari Link Road, Nashik -<br>422003
-                    </p>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="copyright">
-        © Apex Leraning Hub 2026 All rights reserved
-    </div>
-</footer>
-
-</html>
+{% endblock %}

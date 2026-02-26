@@ -12,15 +12,24 @@
     background-color: #29629d;
     color: yellow;
     padding-top: 8px;
+    position: relative;
 }
 #new{
     background-color: #29909d;
     color: white;
     height: 35px;
-    width: 100px;
-    margin-left: 160px;
+    width: 120px;
+    position: absolute;
+    left: 50px;
+    top: 0;
     text-align: center;
-    padding-top: 1px;
+    padding-top: 8px;
+    z-index: 10;
+    font-weight: bold;
+}
+#news-content{
+    color: yellow;
+    font-size: 16px;
 }
 #second{
     height: 35px;

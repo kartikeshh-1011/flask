@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#424242" />
+    <title>{% block title %}Apex Learning Hub{% endblock %}</title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='global-ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
+
+    {% block extra_css %}
+    <!-- Pages can add their own CSS here -->
+    {% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='chatbot.css') }}">
+</head>
+
+<body>
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash-message flash-{{ category }}">
+            <span>{{ message }}</span>
+            <button class="close-flash">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- HEADER SECTION - This will appear on all pages -->
+    <div id="first">
+        <div id="new">Latest News</div>
+        <marquee behavior="" direction="left">
+            <div id="news-content">Latest News: 10 January 2026 - New Admission Open for All Classes! Apply Now <a
+                    href="{{url_for('admision')}}">admission form</a></div>
+        </marquee>
+    </div>
+    <div id="second">
+        <a href="mailto:apexlearninghub2020@gmail.com">
+            <p id="gmail">&#9993 apexlearninghub2020@gmail.com</p>
+        </a>
+    </div>
+    <header class="top-header">
+        <div class="container">
+            <div class="logo">
+                <img src="{{url_for('static',filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg')}}">
+                <h1>APEX LEARNING HUB</h1>
+            </div>
+
+            <div class="right">
+                <div class="call mobile-hide">
+                    <i class="fa-solid fa-phone"></i>
+                    <span class="number">Call Us<br><a href="tel:+919421554793"><b>+919421554793</b></a></span>
+                </div>
+                {% if session.get('logged_in') %}
+                <div class="user-profile-menu">
+                    <a href="{{ url_for('profile_redirect') }}" class="profile-link" title="My Profile">
+                        {% if nav_photo_url %}
+                        <img src="{{ nav_photo_url }}" alt="Profile"
+                            style="width:32px; height:32px; border-radius:50%; object-fit:cover; vertical-align:middle; border:2px solid #0d9488; margin-right:4px;">
+                        {% else %}
+                        <i class="fas fa-user-circle"></i>
+                        {% endif %}
+                        <span>Profile</span>
+                    </a>
+                    <a href="{{ url_for('logout') }}"><button class="login-btn">Logout</button></a>
+                </div>
+                {% else %}
+                <div class="auth-buttons">
+                    <a href="{{ url_for('login') }}"><button class="login-btn">Login</button></a>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+
+        </div>
+
+        <nav class="menu" id="main-menu">
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="dropdown">
+                    <a href="#">Course <i class="fas fa-caret-down"></i></a>
+                    <ul class="dropdown1">
+                        <li class="dropdown2">
+                            <a href="{{ url_for('static_page', page_name='academic') }}">Academics <i
+                                    class="fas fa-caret-right"></i></a>
+                            <ul>
+                                <li><a href="NHTCET.html">MHTCET</a></li>
+                                <li><a href="NEET.html">NEET</a></li>
+                                <li><a href="JEE.html">JEE</a></li>
+                                <li><a href="V.html"> V</a></li>
+                                <li><a href="VI.html"> VI</a></li>
+                                <li><a href="VII.html"> VII</a></li>
+                                <li><a href="VIII.html"> VIII</a></li>
+                                <li><a href="IX.html"> IX</a></li>
+                                <li><a href="X.html"> X</a></li>
+                                <li><a href="XI.html"> XI</a></li>
+                                <li><a href="XII.html"> XII</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown3">
+                            <a href="{{ url_for('static_page', page_name='nonacademic') }}">Nonacademics <i
+                                    class="fas fa-caret-right"></i></a>
+                            <ul>
+                                <li><a href="KVPY.html">KVPY</a></li>
+                                <li><a href="NAVODAYA.html">NAVODAYA</a></li>
+                                <li><a href="SAINIKI.html">SAINIKi</a></li>
+                                <li><a href="OLYMPIADS.html">OLYMPIADS</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="{{ url_for('static_page', page_name='aboutus') }}">About Us</a></li>
+                <li><a href="{{ url_for('static_page', page_name='gallery') }}">Gallery</a></li>
+                <li><a href="{{ url_for('static_page', page_name='event') }}">Events</a></li>
+                <li><a href="{{ url_for('static_page', page_name='result') }}">Result</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+        </nav>
+
+        <script>
+            function toggleMenu() {
+                var menu = document.getElementById("main-menu");
+                menu.classList.toggle("active");
+            }
+        </script>
+    </header>
+    <!-- END OF HEADER SECTION -->
+
+    <!-- MAIN CONTENT - Each page will insert its content here -->
+    {% block content %}
+    <!-- Page-specific content goes here -->
+    {% endblock %}
+
+    <!-- FOOTER SECTION - This will appear on all pages -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-box">
+                <h3>Links</h3>
+                <ul>
+                    <a href="{{ url_for('home') }}">
+                        <li>Home</li>
+                    </a>
+                    <a href="{{ url_for('static_page', page_name='event') }}">
+                        <li>Events</li>
+                    </a>
+                    <a href="{{ url_for('static_page', page_name='aboutus') }}">
+                        <li>About Us</li>
+                    </a>
+                    <a href="{{ url_for('contact') }}">
+                        <li>Contact Us</li>
+                    </a>
+                </ul>
+            </div>
+            <div class="footer-box">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://wa.me/919421554793"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/share/183weznzH8/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://g.co/kgs/Pj85AHs"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="https://www.linkedin.com/company/apex-learning-hub/"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/apexlearninghub?utm_source=qr&igsh=eXloamM1MTJ1MTU="> <i
+                            class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-box">
+                <a href="{{ url_for('feedback') }}">
+                    <h3 class="feed">Feedback</h3>
+                </a>
+                <div class="complain">
+
+                    <a href="{{ url_for('complain') }}"><i class="fas fa-pen"></i></a>
+                    <a href="{{ url_for('complain') }}"><span>Complain</span></a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="footer-bottom">
+            <div class="info">
+                <i class="fas fa-phone"></i>
+                <div id="numberclick">
+                    <strong>Contact</strong>
+                    <a href="tel:+919421554793"><br>
+                        +919421554793</a>
+                    <br>
+                    <a href="tel:+919421554793">+918928772435</a>
+                </div>
+            </div>
+            <div class="info">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <strong>Email Us</strong>
+                    <a href="mailto:apexlearninghub2020@gmail.com"><br>
+                        apexlearninghub2020@gmail.com</a>
+                </div>
+            </div>
+            <div class="info">
+                <i class="fas fa-location-dot"></i>
+                <div>
+                    <strong>Address</strong><br>
+                    <a href=https://maps.app.goo.gl/UhYGeb6NUFumRkJm9>
+                        <p>2nd Floor, 'Guru Mauli', <br>Near HP Petrol Pump, Meri - Rasbihari Link Road, Nashik
+                            -<br>422003
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            © Apex Leraning Hub 2026 All rights reserved
+        </div>
+    </footer>
+
+    {% block extra_js %}
+    <!-- Pages can add their own JavaScript here -->
+    {% endblock %}
+
+    <script src="{{ url_for('static', filename='flash-utils.js') }}"></script>
+
+    <!-- ===== APEX AI CHATBOT WIDGET ===== -->
+    <!-- Floating toggle button -->
+    <button id="chatbot-toggle" title="Chat with Apex AI">
+        <i class="fas fa-robot"></i>
+        <span class="notif-dot"></span>
+    </button>
+
+    <!-- Chat window -->
+    <div id="chatbot-window">
+        <!-- Header -->
+        <div id="chatbot-header">
+            <div class="bot-avatar">🤖</div>
+            <div class="bot-info">
+                <h4>Apex AI Assistant</h4>
+                <span>Online · Powered by Gemini</span>
+            </div>
+            <button id="chatbot-close" title="Close">&times;</button>
+        </div>
+
+        <!-- Messages -->
+        <div id="chatbot-messages">
+            <!-- Welcome message -->
+            <div class="chat-msg bot">
+                <div class="avatar">🤖</div>
+                <div class="bubble">👋 Hi! I'm the <strong>Apex AI Assistant</strong>.<br>How can I help you today?
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggested Questions -->
+        <div id="chatbot-suggestions">
+            <button class="suggestion-chip">📝 How to apply for admission?</button>
+            <button class="suggestion-chip">📚 Available courses</button>
+            <button class="suggestion-chip">📍 School location</button>
+            <button class="suggestion-chip">📞 Contact details</button>
+        </div>
+
+        <!-- Input area -->
+        <div id="chatbot-input-area">
+            <input type="text" id="chatbot-input" placeholder="Type your question..." autocomplete="off"
+                maxlength="500">
+            <button id="chatbot-send" title="Send">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+
+        <div id="chatbot-footer">Powered by Google Gemini AI</div>
+    </div>
+    <!-- ===== END CHATBOT ===== -->
+
+    <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+</body>
+
+</html>

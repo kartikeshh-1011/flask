@@ -8,6 +8,7 @@
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='forgot.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='global-ui.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}">
@@ -21,7 +22,8 @@
     <div class="flash-messages">
         {% for category, message in messages %}
         <div class="flash-message flash-{{ category }}">
-            {{ message }}
+            <span>{{ message }}</span>
+            <button class="close-flash">&times;</button>
         </div>
         {% endfor %}
     </div>
@@ -55,6 +57,7 @@
         </div>
     </div>
 
+    <script src="{{ url_for('static', filename='flash-utils.js') }}"></script>
 </body>
 
 </html>

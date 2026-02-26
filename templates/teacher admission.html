@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Admission Form</title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='teacher-admission.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='global-ui.css') }}">
+    <style>
+        /* Photo preview section — mirrors student form style */
+        .teacher-photo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .teacher-photo-preview {
+            width: 130px;
+            height: 130px;
+            border: 2.5px dashed #0d9488;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #f0fdfb;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .teacher-photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .teacher-photo-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #0d9488;
+            font-size: 0.82rem;
+        }
+
+        .teacher-photo-label {
+            font-size: 0.78rem;
+            color: #6b7280;
+        }
+
+        .photo-choose-btn {
+            background: #0d9488;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .photo-choose-btn:hover {
+            background: #0f766e;
+        }
+
+        .mandatory-star {
+            color: #e74c3c;
+            margin-left: 2px;
+        }
+
+        .photo-error {
+            color: #e74c3c;
+            font-size: 0.82rem;
+            display: none;
+        }
+
+        /* Logo + title alignment in form card */
+        .form-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 6px;
+        }
+
+        .form-brand-logo {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .form-brand-text h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #0d9488;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .form-brand-text .subtitle-brand {
+            margin: 2px 0 0;
+            font-size: 0.88rem;
+            color: #6b7280;
+        }
+
+        /* Document rows */
+        .doc-row {
+            background: #f8faff;
+            border: 1.5px dashed #b2c9e3;
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 14px;
+        }
+
+        .doc-row label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #234;
+        }
+
+        .doc-row .doc-hint {
+            font-size: 0.78rem;
+            color: #7a8fa6;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Teacher Admission Form</h1>
+            <a href="{{ url_for('home') }}" class="back-btn">← Back to home</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-card">
+            <!-- Brand: Logo + Title -->
+            <div class="form-brand">
+                <img src="{{ url_for('static', filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg') }}"
+                    alt="Apex Learning Hub Logo" class="form-brand-logo">
+                <div class="form-brand-text">
+                    <h2>APEX LEARNING HUB</h2>
+                    <p class="subtitle-brand">Teacher Admission Form</p>
+                </div>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}">
+                    <span>{{ message }}</span>
+                    <button class="close-flash">&times;</button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <!-- Photo Upload Section (top, prominent) -->
+            <div class="teacher-photo-section">
+                <div class="teacher-photo-preview" id="teacherPhotoPreview"
+                    onclick="document.getElementById('teacherPhotoInput').click()">
+                    <img id="teacherPreviewImg" src="" alt="" style="display:none;">
+                    <div class="teacher-photo-placeholder" id="teacherPhotoPlaceholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                            </path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                        <span style="margin-top:6px;">Upload Photo <span class="mandatory-star">*</span></span>
+                    </div>
+                </div>
+                <button type="button" class="photo-choose-btn"
+                    onclick="document.getElementById('teacherPhotoInput').click()">Choose Photo</button>
+                <span class="teacher-photo-label">Profile photo is required (JPG/PNG, max 2MB)</span>
+                <p class="photo-error" id="teacherPhotoError">Profile photo is required.</p>
+            </div>
+
+            <form action="/submit-teacher-admission" method="POST" class="admission-form" enctype="multipart/form-data"
+                id="teacherAdmissionForm">
+                <!-- Hidden photo input INSIDE the form -->
+                <input type="file" id="teacherPhotoInput" name="photo" accept="image/jpeg,image/png,image/jpg"
+                    style="display:none;">
+
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="full_name">Full Name *</label>
+                            <input type="text" id="full_name" name="full_name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" autocomplete="email" value="{{ email }}"
+                                readonly style="background-color: #f0f0f0; cursor: not-allowed;" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" autocomplete="tel"
+                                placeholder="10-digit phone number" required>
+                            <span class="error-message" id="phone-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date_of_birth">Date of Birth *</label>
+                            <input type="date" id="date_of_birth" name="date_of_birth" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Gender *</label>
+                            <select id="gender" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="blood_group">Blood Group</label>
+                            <select id="blood_group" name="blood_group">
+                                <option value="">Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="address">Address *</label>
+                            <textarea id="address" name="address" rows="3" autocomplete="street-address"
+                                required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Details -->
+                <div class="form-section">
+                    <h3>Professional Details</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="employee_id">Employee ID *</label>
+                            <input type="text" id="employee_id" name="employee_id" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="designation">Designation *</label>
+                            <select id="designation" name="designation" required>
+                                <option value="">Select Designation</option>
+                                <option value="Primary Teacher">Primary Teacher</option>
+                                <option value="Senior Teacher">Senior Teacher</option>
+                                <option value="Head Teacher">Head Teacher</option>
+                                <option value="Principal">Principal</option>
+                                <option value="Vice Principal">Vice Principal</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="department">Department/Subject *</label>
+                            <input type="text" id="department" name="department" placeholder="e.g., Mathematics"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="joining_date">Joining Date *</label>
+                            <input type="date" id="joining_date" name="joining_date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="experience">Total Experience (Years) *</label>
+                            <input type="number" id="experience" name="experience" min="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="specialization">Specialization</label>
+                            <input type="text" id="specialization" name="specialization"
+                                placeholder="e.g., Algebra &amp; Calculus">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Educational Qualifications -->
+                <div class="form-section">
+                    <h3>Educational Qualifications</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="highest_qualification">Highest Qualification *</label>
+                            <select id="highest_qualification" name="highest_qualification" required>
+                                <option value="">Select Qualification</option>
+                                <option value="B.Ed">B.Ed</option>
+                                <option value="M.Ed">M.Ed</option>
+                                <option value="B.A.">B.A.</option>
+                                <option value="M.A.">M.A.</option>
+                                <option value="B.Sc.">B.Sc.</option>
+                                <option value="M.Sc.">M.Sc.</option>
+                                <option value="B.Tech">B.Tech</option>
+                                <option value="M.Tech">M.Tech</option>
+                                <option value="Ph.D.">Ph.D.</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="university">University/Institution *</label>
+                            <input type="text" id="university" name="university" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="graduation_year">Year of Graduation *</label>
+                            <input type="number" id="graduation_year" name="graduation_year" min="1950" max="2030"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="certifications">Additional Certifications</label>
+                            <textarea id="certifications" name="certifications" rows="2"
+                                placeholder="List any additional certifications"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Contact -->
+                <div class="form-section">
+                    <h3>Emergency Contact</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="emergency_contact_name">Contact Name *</label>
+                            <input type="text" id="emergency_contact_name" name="emergency_contact_name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emergency_contact_phone">Contact Phone *</label>
+                            <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone"
+                                pattern="[0-9]{10}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emergency_contact_relation">Relation *</label>
+                            <input type="text" id="emergency_contact_relation" name="emergency_contact_relation"
+                                required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documents -->
+                <div class="form-section">
+                    <h3>Documents</h3>
+
+                    <div class="doc-row">
+                        <label>Aadhaar Card <span class="mandatory-star">*</span></label>
+                        <input type="file" name="aadhaar" accept=".pdf,.jpg,.jpeg,.png" required id="aadhaarInput">
+                        <span class="doc-hint">Upload a clear scan or photo of Aadhaar card. (PDF/JPG/PNG, max
+                            2MB)</span>
+                    </div>
+
+                    <div class="doc-row">
+                        <label>Resume / CV <span style="color:#7a8fa6;font-weight:400;">(Optional)</span></label>
+                        <input type="file" name="resume" accept=".pdf,.doc,.docx">
+                        <span class="doc-hint">Upload your resume or CV. (PDF/DOC/DOCX, max 5MB)</span>
+                    </div>
+
+                    <div class="doc-row">
+                        <label>PAN Card <span style="color:#7a8fa6;font-weight:400;">(Optional)</span></label>
+                        <input type="file" name="pan" accept=".pdf,.jpg,.jpeg,.png">
+                        <span class="doc-hint">Upload your PAN card if available. (PDF/JPG/PNG, max 2MB)</span>
+                    </div>
+
+                    <div class="doc-row">
+                        <label>Other Supporting Documents <span
+                                style="color:#7a8fa6;font-weight:400;">(Optional)</span></label>
+                        <input type="file" name="documents" multiple>
+                        <span class="doc-hint">Any other relevant documents (certificates, experience letters,
+                            etc.)</span>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <span class="btn-text">Submit Application</span>
+                        <span class="btn-loader" style="display: none;">Submitting...</span>
+                    </button>
+                    <button type="reset" class="reset-btn">Reset Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 Apex Learning Hub | All Rights Reserved
+    </div>
+
+    <script>
+        // Teacher photo preview
+        const teacherPhotoInput = document.getElementById('teacherPhotoInput');
+        const teacherPreviewImg = document.getElementById('teacherPreviewImg');
+        const teacherPhotoPlaceholder = document.getElementById('teacherPhotoPlaceholder');
+        const teacherPhotoError = document.getElementById('teacherPhotoError');
+        const teacherForm = document.getElementById('teacherAdmissionForm');
+
+        teacherPhotoInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    teacherPreviewImg.src = e.target.result;
+                    teacherPreviewImg.style.display = 'block';
+                    teacherPhotoPlaceholder.style.display = 'none';
+                    teacherPhotoError.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Validate photo on form submit
+        teacherForm.addEventListener('submit', function (e) {
+            if (!teacherPhotoInput.files || teacherPhotoInput.files.length === 0) {
+                e.preventDefault();
+                teacherPhotoError.style.display = 'block';
+                document.getElementById('teacherPhotoPreview').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return false;
+            }
+        });
+    </script>
+    <script src="{{ url_for('static', filename='flash-utils.js') }}"></script>
+</body>
+
+</html>

@@ -1,35 +1,51 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-#first{
+
+#first {
     height: 35px;
     width: 100%;
     background-color: #29629d;
     color: yellow;
+    padding-top: 8px;
+    position: relative;
 }
-#new{
+
+#new {
     background-color: #29909d;
     color: white;
     height: 35px;
     width: 120px;
-    margin-left: 160px;
+    position: absolute;
+    left: 50px;
+    top: 0;
     text-align: center;
-    padding-top: 1px;
+    padding-top: 8px;
+    z-index: 10;
+    font-weight: bold;
 }
-#second{
+
+#news-content {
+    color: yellow;
+    font-size: 16px;
+}
+
+#second {
     height: 35px;
     width: 100%;
     background-color: #29909d;
 }
-#gmail{
+
+#gmail {
     padding-left: 120px;
     color: white;
     font-size: large;
 }
-#second a{
+
+#second a {
     text-decoration: none;
 }
 
@@ -83,7 +99,8 @@
     padding: 10px;
     border-radius: 50%;
 }
-.number a{
+
+.number a {
     text-decoration: none;
     color: #29909d;
 }
@@ -97,6 +114,7 @@
     cursor: pointer;
     font-size: 15px;
 }
+
 .menu {
     background: #efefef;
     font-family: Arial, sans-serif;
@@ -107,13 +125,15 @@
 }
 
 /* MAIN MENU */
-.menu  ul {
+.menu ul {
     display: flex;
     align-items: center;
 }
-.menu  ul  li {
+
+.menu ul li {
     position: relative;
 }
+
 .menu a {
     display: block;
     padding: 14px 80px;
@@ -121,9 +141,11 @@
     text-decoration: none;
     font-size: 15px;
 }
+
 .menu a:hover {
     background: #29909d;
 }
+
 /* FIRST DROPDOWN */
 .menu ul ul {
     position: absolute;
@@ -135,7 +157,7 @@
     z-index: 1000;
 }
 
-.menu ul li:hover > ul {
+.menu ul li:hover>ul {
     display: block;
 }
 
@@ -155,11 +177,12 @@
 .menu ul ul a:hover {
     background: #29909d;
 }
+
 body {
     background: #f5f5f5;
 }
 
-.title{
+.title {
     height: 80px;
     width: 100%;
     background-color: #29909d;
@@ -167,62 +190,73 @@ body {
     color: white;
     padding-top: 30px;
 }
-.section{
+
+.section {
     width: 100%;
     min-height: 90vh;
     background-color: #e2e2e2;
 }
-.container1{
+
+.container1 {
     width: 80%;
     display: block;
     /* margin: 90px; */
-    padding: top 100px; 
+    padding: top 100px;
 }
-.content-section{
+
+.content-section {
     float: left;
     width: 45%;
     padding-top: 30px;
 
 }
-.image-section{
+
+.image-section {
     float: right;
     width: 50%;
     padding-top: 50px;
 }
-.image-section img{
+
+.image-section img {
     width: 100%;
     height: auto;
 }
+
 /* .content-section .title{
     text-transform: uppercase;
     font-size: 35px;
 } */
-.content-section .content{
+.content-section .content {
     margin-top: 20px;
     color: #5d5d5d;
     font-size: 13px;
 }
-.content-section .content p{
+
+.content-section .content p {
     margin-top: 10px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 12px;
-    line-height:1.5;
+    line-height: 1.5;
 }
-.content-section .content .button{
+
+.content-section .content .button {
     margin-top: 30px;
 }
-.content-section .content .button a{
-    background-color:#333;
+
+.content-section .content .button a {
+    background-color: #333;
     padding: 12px 40px;
     text-decoration: none;
     color: #fff;
     font-size: 25px;
     letter-spacing: 1.5px;
 }
-.content-section .content .button a:hover{
+
+.content-section .content .button a:hover {
     background-color: #29909d;
     color: #fff;
 }
+
 /* .content-section .social{
     margin-top: 40px 40px;
 }
@@ -237,15 +271,16 @@ body {
 .content-section .social i:hover{
     color: #29909d;
 } */
-#empty{
+#empty {
     height: 50px;
     width: 100%;
 }
+
 .footer {
     background: #383838;
     color: #ddd;
     bottom: 0%;
-    background:url('https://www.encounterbooks.com/wp-content/uploads/2020/02/graduationcaphero-1280x910.jpg')center/cover no-repeat;
+    background: url('https://www.encounterbooks.com/wp-content/uploads/2020/02/graduationcaphero-1280x910.jpg')center/cover no-repeat;
 }
 
 .footer-top {
@@ -262,7 +297,8 @@ body {
     display: inline-block;
     padding-bottom: 5px;
 }
-.footer-box a{
+
+.footer-box a {
     text-decoration: none;
 }
 
@@ -280,7 +316,8 @@ body {
 .footer-box ul li:hover {
     color: #29909d;
 }
-#numberclick a{
+
+#numberclick a {
     color: white;
     text-decoration: none;
 }
@@ -298,11 +335,13 @@ body {
 
 .social-icons i:hover {
     background: #29909d;
-    color: #000; 
+    color: #000;
 }
-.feed:hover{
+
+.feed:hover {
     color: #29909d;
 }
+
 .complain {
     display: flex;
     align-items: center;
@@ -314,25 +353,30 @@ body {
     font-size: 22px;
     color: white;
 }
-.complain a{
+
+.complain a {
     color: white;
 }
 
-.complain a:hover{
+.complain a:hover {
     color: #29909d;
 }
+
 hr {
     border: 0.5px solid #555;
     margin: 0 80px;
 }
+
 .footer-bottom {
     display: flex;
     justify-content: space-between;
     padding: 30px 80px;
 }
-.footer-bottom a:hover{
+
+.footer-bottom a:hover {
     color: #29909d;
 }
+
 .info {
     display: flex;
     align-items: center;
@@ -342,12 +386,13 @@ hr {
     font-size: 25px;
     margin-right: 15px;
 }
-.info a{
+
+.info a {
     text-decoration: none;
     color: white;
 }
 
-#numberclick a:hover{
+#numberclick a:hover {
     color: #29909d;
 }
 

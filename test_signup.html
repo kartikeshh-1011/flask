@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Direct Signup Test</title>
+</head>
+
+<body>
+    <h1>Direct Signup Test</h1>
+    <form action="http://127.0.0.1:5000/signup" method="POST">
+        <label>Role:</label>
+        <select name="role" required>
+            <option value="Student">Student</option>
+            <option value="Teacher">Teacher</option>
+        </select><br><br>
+
+        <label>Username:</label>
+        <input type="text" name="username" required><br><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" required><br><br>
+
+        <label>Password:</label>
+        <input type="password" name="password" required><br><br>
+
+        <button type="submit">Sign Up</button>
+    </form>
+</body>
+
+</html>

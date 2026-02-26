@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Learning Hub – Admission</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='global-ui.css') }}">
+    <style>
+        .doc-section {
+            margin-top: 20px;
+        }
+
+        .doc-section h3 {
+            margin-bottom: 12px;
+        }
+
+        .doc-upload-row {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .doc-upload-item {
+            background: #f8faff;
+            border: 1.5px dashed #b2c9e3;
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .doc-upload-item label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #234;
+        }
+
+        .doc-upload-item .doc-hint {
+            font-size: 0.78rem;
+            color: #7a8fa6;
+            margin-top: 2px;
+        }
+
+        .doc-upload-item input[type="file"] {
+            margin-top: 6px;
+            font-size: 0.88rem;
+        }
+
+        .mandatory-star {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+
+        .photo-error {
+            color: #e74c3c;
+            font-size: 0.82rem;
+            display: none;
+            margin-top: 4px;
+        }
+
+        /* Logo + title alignment */
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-logo {
+            width: 62px;
+            height: 62px;
+            object-fit: contain;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="card">
+
+            <div class="form-header">
+                <div class="header-text">
+                    <div class="header-brand">
+                        <img src="{{ url_for('static', filename='WhatsApp Image 2025-12-28 at 11.51.07 PM.jpeg') }}"
+                            alt="Apex Learning Hub Logo" class="header-logo">
+                        <div>
+                            <h2>APEX LEARNING HUB</h2>
+                            <p class="tagline">Student Admission Form</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="photo-upload-section">
+                    <div class="photo-preview" id="photoPreview">
+                        <img id="previewImage" src="" alt="Photo Preview" style="display: none;">
+                        <div class="photo-placeholder" id="photoPlaceholder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                                </path>
+                                <circle cx="12" cy="13" r="4"></circle>
+                            </svg>
+                            <p>Upload Photo <span class="mandatory-star">*</span></p>
+                        </div>
+                    </div>
+                    <label for="studentPhoto" class="photo-upload-btn">Choose Photo</label>
+                    <p class="photo-error" id="photoError">Profile photo is required.</p>
+                </div>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}">
+                    <span>{{ message }}</span>
+                    <button class="close-flash">&times;</button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('submit_admission') }}" method="POST" enctype="multipart/form-data"
+                id="admissionForm">
+
+                <!-- Hidden file inputs INSIDE the form -->
+                <input type="file" id="studentPhoto" name="student_photo" accept="image/*" style="display: none;">
+
+                <!-- Student Info -->
+                <h3>Student Information</h3>
+
+                <div class="row">
+                    <input type="text" name="student_name" placeholder="Student Name" required>
+                    <input type="date" name="date_of_birth" placeholder="Date of Birth" required>
+                </div>
+
+                <div class="row">
+                    <input type="email" name="email" placeholder="Email" value="{{ email }}" readonly
+                        style="background-color: #f0f0f0; cursor: not-allowed;" required>
+                    <input type="text" name="contact_number" placeholder="Contact Number" required>
+                </div>
+
+                <div class="row">
+                    <select name="class_enroll" required>
+                        <option value="" disabled selected>Select Class Enroll For</option>
+                        <optgroup label="─── Primary Section ───">
+                            <option value="Class 1">Class 1</option>
+                            <option value="Class 2">Class 2</option>
+                            <option value="Class 3">Class 3</option>
+                            <option value="Class 4">Class 4</option>
+                        </optgroup>
+                        <optgroup label="─── Secondary Section ───">
+                            <option value="V">V</option>
+                            <option value="VI">VI</option>
+                            <option value="VII">VII</option>
+                            <option value="VIII">VIII</option>
+                            <option value="IX">IX</option>
+                            <option value="X">X</option>
+                            <option value="XI">XI</option>
+                            <option value="XII">XII</option>
+                        </optgroup>
+                    </select>
+                    <div class="radio-group">
+                        <label><input type="radio" name="gender" value="Male" required> Male</label>
+                        <label><input type="radio" name="gender" value="Female" required> Female</label>
+                    </div>
+                </div>
+
+                <!-- Guardian Info -->
+                <h3>Guardian Information</h3>
+
+                <div class="row">
+                    <input type="text" name="guardian_name" placeholder="Guardian Name" required>
+                    <input type="text" name="guardian_contact" placeholder="Contact Number" required>
+                </div>
+
+                <div class="row">
+                    <input type="text" name="guardian_occupation" placeholder="Occupation">
+                    <input type="text" name="guardian_address" placeholder="Address">
+                </div>
+
+                <!-- Previous Board -->
+                <h3>Previous Board Details</h3>
+
+                <div class="radio-group">
+                    <label><input type="radio" name="previous_board" value="CBSE" required> CBSE</label>
+                    <label><input type="radio" name="previous_board" value="ICSE" required> ICSE</label>
+                    <label><input type="radio" name="previous_board" value="IGCSE" required> IGCSE</label>
+                    <label><input type="radio" name="previous_board" value="HSC" required> HSC</label>
+                    <label><input type="radio" name="previous_board" value="SSC" required> SSC</label>
+                    <label><input type="radio" name="previous_board" value="OTHER" required> OTHER</label>
+                </div>
+
+                <div class="row">
+                    <input type="text" name="previous_school" placeholder="School / College Name">
+                    <input type="text" name="percentage_obtained" placeholder="Percentage Obtained">
+                </div>
+
+                <!-- Enrolled Board -->
+                <h3>Enrolled Board</h3>
+
+                <div class="radio-group">
+                    <label><input type="radio" name="enrolled_board" value="CBSE" required> CBSE</label>
+                    <label><input type="radio" name="enrolled_board" value="ICSE" required> ICSE</label>
+                    <label><input type="radio" name="enrolled_board" value="IGCSE" required> IGCSE</label>
+                    <label><input type="radio" name="enrolled_board" value="HSC" required> HSC</label>
+                    <label><input type="radio" name="enrolled_board" value="SSC" required> SSC</label>
+                    <label><input type="radio" name="enrolled_board" value="OTHER" required> OTHER</label>
+                </div>
+
+                <input type="text" name="enrolled_school" placeholder="School / College Name">
+
+                <!-- Program -->
+                <h3>Program Enrolled For</h3>
+
+                <div class="radio-group">
+                    <label><input type="radio" name="program_enrolled" value="School / College (All Subjects)" required>
+                        School / College (All Subjects)</label>
+                    <label><input type="radio" name="program_enrolled" value="IIT Foundation (PCM)" required> IIT
+                        Foundation (PCM)</label>
+                    <label><input type="radio" name="program_enrolled" value="IIT Foundation (PCMB)" required> IIT
+                        Foundation (PCMB)</label>
+                    <label><input type="radio" name="program_enrolled" value="School + IIT Foundation (PCM)" required>
+                        School + IIT Foundation (PCM)</label>
+                    <label><input type="radio" name="program_enrolled" value="School + IIT Foundation (PCMB)" required>
+                        School + IIT Foundation (PCMB)</label>
+                    <label><input type="radio" name="program_enrolled" value="Scholarship Program (All Subjects)"
+                            required> Scholarship Program (All Subjects)</label>
+                    <label><input type="radio" name="program_enrolled" value="Board + MHT-CET (PCM)" required> Board
+                        + MHT-CET
+                        (PCM)</label>
+                    <label><input type="radio" name="program_enrolled" value="Board + MHT-CET (PCB)" required> Board +
+                        MHT-CET
+                        (PCB)</label>
+                    <label><input type="radio" name="program_enrolled" value="JEE/NEET Preparation (PCM)" required>
+                        JEE/NEET Preparation (PCM)</label>
+                    <label><input type="radio" name="program_enrolled" value="JEE/NEET Preparation (PCB)" required>
+                        JEE/NEET Preparation (PCB)</label>
+                    <label><input type="radio" name="program_enrolled"
+                            value="Commerce Stream (Accounts, Economics, Business Studies)" required> Commerce Stream
+                        (Accounts, Economics, Business Studies)</label>
+                    <label><input type="radio" name="program_enrolled"
+                            value="Arts Stream (History, Geography, Political Science)" required> Arts Stream (History,
+                        Geography, Political Science)</label>
+                    <label><input type="radio" name="program_enrolled" value="Vedic Mathematics Program" required> Vedic
+                        Mathematics Program</label>
+                    <label><input type="radio" name="program_enrolled"
+                            value="Language Enhancement (Hindi, English, Marathi)" required> Language Enhancement
+                        (Hindi, English, Marathi)</label>
+                </div>
+
+                <!-- Documents Section -->
+                <div class="doc-section">
+                    <h3>Documents</h3>
+                    <div class="doc-upload-row">
+                        <div class="doc-upload-item">
+                            <label>Aadhaar Card <span class="mandatory-star">*</span></label>
+                            <input type="file" name="aadhaar_card" accept=".pdf,.jpg,.jpeg,.png" required>
+                            <span class="doc-hint">Upload a clear scan or photo of your Aadhaar card. (PDF/JPG/PNG, max
+                                2MB)</span>
+                        </div>
+                        <div class="doc-upload-item">
+                            <label>Previous Year Marksheet <span
+                                    style="color:#7a8fa6;font-weight:400;">(Optional)</span></label>
+                            <input type="file" name="marksheet" accept=".pdf,.jpg,.jpeg,.png">
+                            <span class="doc-hint">Upload your previous year's marksheet if available. (PDF/JPG/PNG, max
+                                2MB)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button">
+                    <input type="submit" value="Submit Application" id="submitBtn">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        // Photo upload preview functionality
+        const photoInput = document.getElementById('studentPhoto');
+        const previewImage = document.getElementById('previewImage');
+        const photoPlaceholder = document.getElementById('photoPlaceholder');
+        const photoUploadBtn = document.querySelector('.photo-upload-btn');
+        const photoError = document.getElementById('photoError');
+        const admissionForm = document.getElementById('admissionForm');
+
+        photoUploadBtn.addEventListener('click', function () {
+            photoInput.click();
+        });
+
+        photoInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                    photoPlaceholder.style.display = 'none';
+                    photoError.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Validate photo on form submit
+        admissionForm.addEventListener('submit', function (e) {
+            if (!photoInput.files || photoInput.files.length === 0) {
+                e.preventDefault();
+                photoError.style.display = 'block';
+                photoInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return false;
+            }
+        });
+    </script>
+
+    <script src="{{ url_for('static', filename='flash-utils.js') }}"></script>
+</body>
+
+</html>
